@@ -133,10 +133,10 @@ export default function AIDashboard() {
                   disabled={isAnalyzing}
                 >
                   {isAnalyzing ? (
-                    <ActivityIndicator color=\"#fff\" />
+                    <ActivityIndicator color="#fff" />
                   ) : (
                     <>
-                      <MaterialCommunityIcons name=\"radar\" size={20} color=\"#fff\" />
+                      <MaterialCommunityIcons name="radar" size={20} color="#fff" />
                       <Text style={styles.analyzeButtonText}>Run Analysis Now</Text>
                     </>
                   )}
