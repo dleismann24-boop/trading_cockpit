@@ -342,6 +342,162 @@ async def search_stocks(query: str):
     
     return results[:5]
 
+# ============ MULTI-AGENT AI ENDPOINTS ============
+
+class DeepResearchRequest(BaseModel):
+    query: str
+    symbols: Optional[List[str]] = []
+
+@api_router.post("/ai/deep-research")
+async def deep_research(request: DeepResearchRequest):
+    """
+    Deep Research Mode - All 3 AIs analyze in parallel
+    Jordan (GPT-4) + Bohlen (Claude) + Frodo (Gemini)
+    """
+    try:
+        # Get portfolio context
+        try:
+            if trading_client:
+                account = trading_client.get_account()
+                positions = trading_client.get_all_positions()
+                portfolio_context = f"Cash: ${float(account.cash):.2f}, Portfolio: ${float(account.portfolio_value):.2f}. "
+                portfolio_context += f"Holdings: {', '.join([f'{pos.symbol}' for pos in positions[:5]])}"
+            else:
+                portfolio_context = "Paper trading account with $100,000 starting capital"
+        except:
+            portfolio_context = "Paper trading account"
+        
+        # Get multi-agent system
+        multi_agent = get_multi_agent_system()
+        
+        # Run deep research
+        results = await multi_agent.deep_research(
+            query=request.query,
+            portfolio_context=portfolio_context
+        )
+        
+        # Save to database
+        research_doc = {
+            "query": request.query,
+            "results": results,
+            "portfolio_context": portfolio_context,
+            "timestamp": datetime.utcnow()
+        }
+        await db.ai_research.insert_one(research_doc)
+        
+        return {
+            "success": True,
+            "research": results,
+            "timestamp": results["timestamp"]
+        }
+        
+    except Exception as e:
+        logger.error(f"Deep research error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+class AutoPilotToggle(BaseModel):
+    enabled: bool
+
+class AutoPilotStatus(BaseModel):
+    enabled: bool
+    last_action: Optional[str] = None
+    last_run: Optional[str] = None
+
+# Auto-pilot state (in production, use database)
+autopilot_state = {
+    "enabled": False,
+    "last_action": None,
+    "last_run": None
+}
+
+@api_router.post("/ai/autopilot/toggle")
+async def toggle_autopilot(toggle: AutoPilotToggle):
+    """Enable/Disable Auto-Pilot"""
+    autopilot_state["enabled"] = toggle.enabled
+    autopilot_state["last_run"] = str(datetime.utcnow()) if toggle.enabled else None
+    
+    return AutoPilotStatus(**autopilot_state)
+
+@api_router.get("/ai/autopilot/status")
+async def get_autopilot_status():
+    """Get Auto-Pilot status"""
+    return AutoPilotStatus(**autopilot_state)
+
+@api_router.post("/ai/autopilot/analyze")
+async def autopilot_analyze():
+    """
+    Auto-Pilot Analysis - AIs suggest trades
+    Max 10% of portfolio per trade
+    """
+    try:
+        if not autopilot_state["enabled"]:
+            return {
+                "success": False,
+                "message": "Auto-pilot is disabled"
+            }
+        
+        # Get portfolio context
+        try:
+            if trading_client:
+                account = trading_client.get_account()
+                positions = trading_client.get_all_positions()
+                portfolio_value = float(account.portfolio_value)
+                portfolio_context = f"Cash: ${float(account.cash):.2f}, Total Portfolio: ${portfolio_value:.2f}"
+                
+                # Get market data for top positions
+                market_data = {
+                    "portfolio_value": portfolio_value,
+                    "positions": [
+                        {
+                            "symbol": pos.symbol,
+                            "quantity": float(pos.qty),
+                            "value": float(pos.market_value),
+                            "pl_percent": float(pos.unrealized_plpc) * 100
+                        }
+                        for pos in positions[:5]
+                    ]
+                }
+            else:
+                portfolio_context = "Paper trading account"
+                market_data = {"portfolio_value": 100000, "positions": []}
+        except:
+            portfolio_context = "Paper trading account"
+            market_data = {"portfolio_value": 100000, "positions": []}
+        
+        # Get multi-agent system
+        multi_agent = get_multi_agent_system()
+        
+        # Run auto-pilot analysis
+        results = await multi_agent.auto_pilot_analyze(
+            portfolio_context=portfolio_context,
+            market_data=market_data
+        )
+        
+        # Save analysis
+        autopilot_state["last_action"] = results.get("recommendation", "HOLD")
+        autopilot_state["last_run"] = str(datetime.utcnow())
+        
+        # Save to database
+        analysis_doc = {
+            "results": results,
+            "portfolio_context": portfolio_context,
+            "market_data": market_data,
+            "timestamp": datetime.utcnow()
+        }
+        await db.autopilot_analysis.insert_one(analysis_doc)
+        
+        return {
+            "success": True,
+            "analysis": results,
+            "recommendation": results.get("recommendation"),
+            "consensus_strength": results.get("consensus_strength"),
+            "max_trade_size_usd": market_data["portfolio_value"] * 0.1  # 10% max
+        }
+        
+    except Exception as e:
+        logger.error(f"Auto-pilot analysis error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 # Include the router in the main app
 app.include_router(api_router)
 
