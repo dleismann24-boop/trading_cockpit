@@ -17,6 +17,7 @@ import { useTradingStore } from '../../store/tradingStore';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || 'http://localhost:8001';
 
+// Fixed syntax errors with escaped quotes
 export default function AIDashboard() {
   const { account } = useTradingStore();
   const [autoPilotEnabled, setAutoPilotEnabled] = useState(false);
