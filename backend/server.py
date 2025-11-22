@@ -290,7 +290,7 @@ async def chat_with_ai(message: ChatMessage):
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": f"You are 'The Coach', an AI trading advisor for Rooky Mann and Funky Dunky. You help manage their stock portfolio with wisdom and a touch of basketball flair. Current portfolio context: {context}. Keep responses concise and actionable. Add subtle basketball references when appropriate."},
+                {"role": "system", "content": f"You are 'The Coach', an AI trading advisor for Wookie Mann and Funky Danki. You help manage their stock portfolio with wisdom and a touch of basketball flair. Current portfolio context: {context}. Keep responses concise and actionable. Add subtle basketball references when appropriate."},
                 {"role": "user", "content": message.message}
             ],
             max_tokens=200,
