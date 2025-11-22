@@ -203,8 +203,8 @@ export default function AIDashboard() {
             <View style={styles.searchContainer}>
               <TextInput
                 style={styles.searchInput}
-                placeholder=\"Ask anything (e.g., 'Should I buy AAPL?')\"
-                placeholderTextColor=\"#666\"
+                placeholder="Ask anything (e.g., 'Should I buy AAPL?')"
+                placeholderTextColor="#666"
                 value={researchQuery}
                 onChangeText={setResearchQuery}
                 multiline
