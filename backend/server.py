@@ -139,7 +139,7 @@ MOCK_ACCOUNT = {
 
 @api_router.get("/")
 async def root():
-    return {"message": "Welcome to the Court, Rooky Mann & Funky Dunky 🏀"}
+    return {"message": "Welcome to the Court, Wookie Mann & Funky Danki 🏀"}
 
 # Account endpoints
 @api_router.get("/account", response_model=AccountResponse)
