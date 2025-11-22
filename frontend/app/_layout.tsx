@@ -9,8 +9,9 @@ export default function RootLayout() {
           headerShown: false,
           contentStyle: { backgroundColor: '#0a0a0a' },
         }}
+        initialRouteName="(tabs)"
       >
-        <Stack.Screen name="index" />
+        <Stack.Screen name="index" options={{ href: null }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
     </SafeAreaProvider>
