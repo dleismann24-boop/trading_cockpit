@@ -63,7 +63,7 @@ export default function Dashboard() {
         <View style={styles.header}>
           <View>
             <Text style={styles.greeting}>Welcome to the Court</Text>
-            <Text style={styles.userName}>Rooky Mann & Funky Dunky</Text>
+            <Text style={styles.userName}>Wookie Mann & Funky Danki</Text>
           </View>
           <MaterialCommunityIcons name="basketball" size={40} color="#f97316" />
         </View>
