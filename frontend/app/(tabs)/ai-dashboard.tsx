@@ -215,10 +215,10 @@ export default function AIDashboard() {
                 disabled={isResearching || !researchQuery.trim()}
               >
                 {isResearching ? (
-                  <ActivityIndicator color=\"#fff\" />
+                  <ActivityIndicator color="#fff" />
                 ) : (
                   <>
-                    <MaterialCommunityIcons name=\"telescope\" size={20} color=\"#fff\" />
+                    <MaterialCommunityIcons name="telescope" size={20} color="#fff" />
                     <Text style={styles.researchButtonText}>Research</Text>
                   </>
                 )}
