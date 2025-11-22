@@ -254,7 +254,7 @@ export default function AIDashboard() {
           )}
 
           <View style={styles.disclaimer}>
-            <MaterialCommunityIcons name=\"shield-alert\" size={16} color=\"#ef4444\" />
+            <MaterialCommunityIcons name="shield-alert" size={16} color="#ef4444" />
             <Text style={styles.disclaimerText}>
               AI suggestions are not financial advice. Always do your own research.
             </Text>
