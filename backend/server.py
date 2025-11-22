@@ -91,7 +91,7 @@ class QuoteResponse(BaseModel):
 
 class ChatMessage(BaseModel):
     message: str
-    user: str = "Rooky Mann & Funky Dunky"
+    user: str = "Wookie Mann & Funky Danki"
 
 class ChatResponse(BaseModel):
     response: str
