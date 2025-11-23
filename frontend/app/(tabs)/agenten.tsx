@@ -27,6 +27,12 @@ export default function Agenten() {
   const [autopilotConfig, setAutopilotConfig] = useState<any>(null);
   const [maxTradePercentage, setMaxTradePercentage] = useState(10);
   
+  // Budget States
+  const [jordanSoloBudget, setJordanSoloBudget] = useState(0);
+  const [bohlenSoloBudget, setBohlenSoloBudget] = useState(0);
+  const [frodoSoloBudget, setFrodoSoloBudget] = useState(0);
+  const [sharedConsensusBudget, setSharedConsensusBudget] = useState(100000);
+  
   // Market Status
   const [marketOpen, setMarketOpen] = useState(false);
   const [marketStatus, setMarketStatus] = useState<any>(null);
