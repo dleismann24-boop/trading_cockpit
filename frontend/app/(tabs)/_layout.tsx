@@ -50,12 +50,18 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="ai-dashboard"
+        name="ai-zentrale"
         options={{
           title: 'KI-Zentrale',
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size}) => (
             <MaterialCommunityIcons name="brain" size={size} color={color} />
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="ai-dashboard"
+        options={{
+          href: null,
         }}
       />
       <Tabs.Screen
