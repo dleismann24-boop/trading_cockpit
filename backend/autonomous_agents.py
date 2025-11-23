@@ -33,7 +33,8 @@ class AutonomousAgent:
         llm_model: str,
         budget: float,
         trading_client: TradingClient,
-        data_client: StockHistoricalDataClient
+        data_client: StockHistoricalDataClient,
+        db_client=None
     ):
         self.name = name
         self.personality = personality
