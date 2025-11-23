@@ -25,6 +25,7 @@ export default function Agenten() {
   const [autopilotEnabled, setAutopilotEnabled] = useState(false);
   const [autopilotInterval, setAutopilotInterval] = useState(60);
   const [autopilotConfig, setAutopilotConfig] = useState<any>(null);
+  const [maxTradePercentage, setMaxTradePercentage] = useState(10);
   
   // Market Status
   const [marketOpen, setMarketOpen] = useState(false);
