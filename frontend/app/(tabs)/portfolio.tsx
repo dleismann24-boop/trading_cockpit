@@ -34,15 +34,15 @@ export default function Portfolio() {
     }
   });
 
-  const totalValue = Positionen.reduce((sum, pos) => sum + pos.market_value, 0);
-  const totalPL = Positionen.reduce((sum, pos) => sum + pos.unrealized_pl, 0);
+  const totalValue = positions.reduce((sum, pos) => sum + pos.market_value, 0);
+  const totalPL = positions.reduce((sum, pos) => sum + pos.unrealized_pl, 0);
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
         <View>
           <Text style={styles.headerTitle}>Your Lineup</Text>
-          <Text style={styles.headerSubtitle}>{positions.length} Positionen</Text>
+          <Text style={styles.headerSubtitle}>{positions.length} positions</Text>
         </View>
         <MaterialCommunityIcons name="trophy" size={32} color="#f97316" />
       </View>
@@ -194,7 +194,7 @@ export default function Portfolio() {
         {positions.length === 0 && !loading && (
           <View style={styles.emptyState}>
             <MaterialCommunityIcons name="basketball" size={64} color="#444" />
-            <Text style={styles.emptyText}>No Positionen yet</Text>
+            <Text style={styles.emptyText}>No positions yet</Text>
             <Text style={styles.emptySubtext}>Zeit, dein Portfolio aufzubauen!</Text>
           </View>
         )}
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
   sortButtonTextActive: {
     color: '#fff',
   },
-  PositionenList: {
+  positionsList: {
     paddingHorizontal: 20,
     paddingBottom: 20,
   },
