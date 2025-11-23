@@ -195,6 +195,19 @@ class AutonomousAgent:
             }
         
         try:
+            # Build sentiment section if available
+            sentiment_section = ""
+            if sentiment_data:
+                sentiment_section = f"""
+Market Sentiment:
+- Overall Score: {sentiment_data.get('overall_score', 0):.2f} ({"Bullish" if sentiment_data.get('overall_score', 0) > 0 else "Bearish"})
+- Twitter Sentiment: {sentiment_data.get('twitter_sentiment', 0):.2f}
+- News Sentiment: {sentiment_data.get('news_sentiment', 0):.2f}
+- Social Volume: {sentiment_data.get('social_volume', 0)} Mentions
+- Summary: {sentiment_data.get('summary', 'N/A')}
+- Signals: {', '.join(sentiment_data.get('signals', []))}
+"""
+            
             prompt = f"""Aktuelle Trading-Situation:
 
 Symbol: {symbol}
@@ -208,11 +221,13 @@ Technische Analyse:
 - Begründung: {signal.reason}
 - RSI: {signal.indicators.get('rsi', 'N/A')}
 - Momentum: {signal.indicators.get('momentum', 'N/A')}
-
+{sentiment_section}
 Entscheide basierend auf deiner Persönlichkeit ({self.personality}):
+Berücksichtige SOWOHL technische Indikatoren ALS AUCH Sentiment-Daten.
+
 Antworte NUR mit: BUY|SELL|HOLD|<confidence 0-1>|<kurze Begründung>
 
-Beispiel: BUY|0.75|Starkes Momentum, RSI unterbewertet"""
+Beispiel: BUY|0.75|Starkes Momentum + positives Sentiment"""
 
             user_message = UserMessage(text=prompt)
             response = await self.llm_chat.send_message(user_message)
