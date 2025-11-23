@@ -558,15 +558,19 @@ async def get_ai_stats():
 from trading_controller import get_trading_controller, TradingMode
 from autopilot_scheduler import get_autopilot_scheduler
 
+class TradingCycleRequest(BaseModel):
+    dry_run: bool = False
+
 @api_router.post("/autonomous/start-cycle")
-async def start_trading_cycle():
-    """Startet einen Trading-Zyklus mit allen Agenten"""
+async def start_trading_cycle(request: TradingCycleRequest = TradingCycleRequest()):
+    """Startet einen Trading-Zyklus mit allen Agenten (gemeinsames Portfolio)"""
     try:
         controller = get_trading_controller(trading_client, data_client)
         if not controller:
             raise HTTPException(status_code=500, detail="Controller nicht initialisiert")
         
-        results = await controller.run_trading_cycle()
+        # Run mit oder ohne dry-run
+        results = await controller.run_trading_cycle(dry_run=request.dry_run)
         
         # Speicher in DB
         await db.trading_cycles.insert_one({
