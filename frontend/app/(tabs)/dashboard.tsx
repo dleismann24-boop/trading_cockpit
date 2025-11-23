@@ -131,6 +131,19 @@ export default function Dashboard() {
           </View>
         </View>
 
+        {/* KI-Kosten Card */}
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>KI-Ausgaben</Text>
+            <MaterialCommunityIcons name="currency-usd" size={24} color="#10b981" />
+          </View>
+          <View style={styles.aiCostCard}>
+            <Text style={styles.aiCostLabel}>Heute</Text>
+            <Text style={styles.aiCostValue}>$0.00</Text>
+            <Text style={styles.aiCostSubtext}>Noch keine KI-Analysen heute</Text>
+          </View>
+        </View>
+
         {/* Your Lineup (Top Holdings) */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
