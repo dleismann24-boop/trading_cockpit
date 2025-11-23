@@ -16,7 +16,7 @@ from alpaca.data.timeframe import TimeFrame
 from alpaca.trading.requests import MarketOrderRequest, LimitOrderRequest
 from alpaca.trading.enums import OrderSide, TimeInForce
 import openai
-from ai_agents import get_multi_agent_system
+from ai_trading_system import get_enhanced_system, DEFAULT_CHARACTERS
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
