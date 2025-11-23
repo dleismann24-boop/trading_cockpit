@@ -135,13 +135,18 @@ export default function Agenten() {
       
       if (response.data.success) {
         const results = response.data.results;
-        const tradesMsg = dryRun
-          ? `🧪 Simulation:\n${results.trades_proposed} Analysen\n${results.consensus_decisions?.length || 0} Konsens-Entscheidungen`
-          : marketOpen 
+        
+        if (dryRun) {
+          // Zeige detaillierte Simulation
+          setSimulationResults(results);
+          setShowSimulationModal(true);
+        } else {
+          const tradesMsg = marketOpen 
             ? `${results.trades_executed} Trades ausgeführt` 
             : `${results.trades_executed} Trades geplant (Markt geschlossen)`;
+          alert(`Trading-Zyklus abgeschlossen!\n\n${tradesMsg}`);
+        }
         
-        alert(`Trading-Zyklus abgeschlossen!\n\n${tradesMsg}`);
         await loadData();
       }
     } catch (error) {
