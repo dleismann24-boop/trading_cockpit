@@ -214,6 +214,18 @@ Market Sentiment:
 - Signals: {', '.join(sentiment_data.get('signals', []))}
 """
             
+            # Build memory section if available
+            memory_section = ""
+            if self.memory:
+                try:
+                    import asyncio
+                    memory_summary = asyncio.run(self.memory.get_memory_summary())
+                    memory_section = f"""
+{memory_summary}
+"""
+                except Exception as e:
+                    logger.error(f"Error getting memory summary: {e}")
+            
             prompt = f"""Aktuelle Trading-Situation:
 
 Symbol: {symbol}
