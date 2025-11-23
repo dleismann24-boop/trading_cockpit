@@ -180,7 +180,8 @@ class AutonomousAgent:
         price: float, 
         signal: TradingSignal,
         cash: float,
-        portfolio_value: float
+        portfolio_value: float,
+        sentiment_data: Dict = None
     ) -> Dict:
         """Consult LLM for final decision"""
         
