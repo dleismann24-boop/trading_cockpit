@@ -1311,4 +1311,147 @@ const styles = StyleSheet.create({
   quickButtonTextActive: {
     color: '#fff',
   },
+  // Modal Styles
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  modalContent: {
+    backgroundColor: '#1a1a1a',
+    borderRadius: 20,
+    maxHeight: '90%',
+    borderWidth: 2,
+    borderColor: '#f97316',
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#2a2a2a',
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  modalScroll: {
+    padding: 20,
+  },
+  decisionCard: {
+    backgroundColor: '#0a0a0a',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#2a2a2a',
+  },
+  decisionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  symbolText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  consensusBadge: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+  },
+  buyBadge: {
+    backgroundColor: '#10b981',
+  },
+  sellBadge: {
+    backgroundColor: '#ef4444',
+  },
+  consensusText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  confidenceText: {
+    fontSize: 14,
+    color: '#888',
+    marginBottom: 16,
+  },
+  proposalsSection: {
+    marginTop: 8,
+  },
+  proposalTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#ccc',
+    marginBottom: 8,
+  },
+  proposalCard: {
+    backgroundColor: '#1a1a1a',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 8,
+    borderLeftWidth: 3,
+    borderLeftColor: '#f97316',
+  },
+  proposalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  agentName: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  actionBadge: {
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  buyText: {
+    color: '#10b981',
+  },
+  sellText: {
+    color: '#ef4444',
+  },
+  holdText: {
+    color: '#888',
+  },
+  reasonText: {
+    fontSize: 13,
+    color: '#ccc',
+    marginBottom: 6,
+    lineHeight: 18,
+  },
+  priceText: {
+    fontSize: 12,
+    color: '#666',
+  },
+  emptyResults: {
+    alignItems: 'center',
+    padding: 40,
+  },
+  emptyResultsText: {
+    fontSize: 14,
+    color: '#888',
+    textAlign: 'center',
+    marginTop: 16,
+  },
+  closeButton: {
+    backgroundColor: '#f97316',
+    padding: 16,
+    borderBottomLeftRadius: 18,
+    borderBottomRightRadius: 18,
+    alignItems: 'center',
+  },
+  closeButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
 });
