@@ -678,6 +678,17 @@ async def configure_autopilot(request: AutopilotConfigRequest):
             autopilot_config['next_run'] = None
             logger.info("⏸️  Autopilot deaktiviert")
         
+        # Save to MongoDB for persistence
+        await db.autopilot_config.update_one(
+            {"_id": "main"},
+            {"$set": {
+                "enabled": request.enabled,
+                "interval_minutes": request.interval_minutes,
+                "updated_at": datetime.utcnow()
+            }},
+            upsert=True
+        )
+        
         return {"success": True, "config": autopilot_config}
     except Exception as e:
         logger.error(f"Autopilot config error: {e}")
