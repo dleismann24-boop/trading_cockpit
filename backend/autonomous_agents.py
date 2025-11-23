@@ -49,7 +49,10 @@ class AutonomousAgent:
         self.strategy_analyzer = StrategyAnalyzer()
         self.risk_manager = RiskManager(budget)
         
-        # Tracking
+        # Memory system
+        self.memory = get_agent_memory(name, db_client) if db_client else None
+        
+        # Tracking (legacy - wird durch Memory ersetzt)
         self.trades_executed = []
         self.total_trades = 0
         self.successful_trades = 0
