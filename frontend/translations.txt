@@ -1,0 +1,66 @@
+# Deutsche Übersetzungen für die App
+
+## Portfolio Screen
+- "Your Lineup" -> "Deine Positionen"  ✅
+- "X positions" -> "X Positionen"
+- "Total Value" -> "Gesamtwert"
+- "Total Return" -> "Gesamtgewinn"
+- "By Value" -> "Nach Wert"
+- "By Return" -> "Nach Rendite"
+- "shares" -> "Aktien"  ✅
+- "Avg:" -> "Ø:"
+- "Unrealized P/L" -> "Nicht realisierter Gewinn/Verlust"
+- "No positions yet" -> "Noch keine Positionen"
+- "Time to build your lineup!" -> "Zeit, dein Portfolio aufzubauen!"
+
+## Trade Screen
+- "Make a Play" -> "Trade ausführen"
+- "Execute your trades" -> "Führe deine Trades aus"
+- "Cash Available" -> "Verfügbares Bargeld"
+- "Buying Power" -> "Kaufkraft"  ✅
+- "Stock Symbol" -> "Aktiensymbol"
+- "Search stocks" -> "Aktien suchen"
+- "Order Type" -> "Order-Typ"
+- "Market" -> "Markt"
+- "Limit" -> "Limit"
+- "Quantity (Shares)" -> "Anzahl (Aktien)"
+- "Limit Price" -> "Limit-Preis"
+- "Estimated Cost" -> "Geschätzte Kosten"
+- "BUY" -> "KAUFEN"
+- "SELL" -> "VERKAUFEN"
+- "Paper trading environment" -> "Paper-Trading-Umgebung - kein echtes Geld"
+
+## AI Dashboard
+- "AI Command Center" -> "KI-Kommandozentrale"
+- "Auto-Pilot" -> "Autopilot"
+- "Let the 3 AIs manage your portfolio" -> "Lass die 3 KIs dein Portfolio verwalten"
+- "Auto-Pilot Active" -> "Autopilot aktiv"
+- "Max trade size" -> "Max. Trade-Größe"
+- "Run Analysis Now" -> "Analyse jetzt starten"
+- "Auto-Pilot Recommendation" -> "Autopilot-Empfehlung"
+- "Consensus Strength" -> "Konsens-Stärke"
+- "Deep Research" -> "Tiefenanalyse"
+- "Get all 3 AIs to analyze" -> "Lass alle 3 KIs analysieren"
+- "Ask anything" -> "Frag alles"
+- "Research" -> "Analysieren"
+- "Research Results" -> "Analyse-Ergebnisse"
+- "AI suggestions are not financial advice" -> "KI-Vorschläge sind keine Finanzberatung. Mach immer deine eigene Recherche."
+
+## Chat
+- "The Coach" -> "Der Coach"
+- "Your AI Trading Advisor" -> "Dein KI-Trading-Berater"
+- "Quick Questions" -> "Schnellfragen"
+- "How is my portfolio doing?" -> "Wie steht mein Portfolio?"
+- "Should I buy more stocks?" -> "Soll ich mehr Aktien kaufen?"
+- "What are the market trends?" -> "Was sind die Markttrends?"
+- "Analyze my positions" -> "Analysiere meine Positionen"
+- "Ask The Coach anything..." -> "Frag den Coach alles..."
+
+## Dashboard
+- "Welcome to the Court" -> "Willkommen auf dem Court"  ✅
+- "Portfolio Value" -> "Portfolio-Wert"  ✅
+- "Game Stats (7D)" -> "Performance (7 Tage)"  ✅
+- "Cash" -> "Bargeld"  ✅
+- "Buying Power" -> "Kaufkraft"  ✅
+- "Your Lineup" -> "Deine Positionen"  ✅
+- "shares" -> "Aktien"  ✅
