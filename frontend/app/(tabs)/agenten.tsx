@@ -20,6 +20,11 @@ export default function Agenten() {
   const [status, setStatus] = useState<any>(null);
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const [cycleRunning, setCycleRunning] = useState(false);
+  
+  // Autopilot State
+  const [autopilotEnabled, setAutopilotEnabled] = useState(false);
+  const [autopilotInterval, setAutopilotInterval] = useState(60);
+  const [autopilotConfig, setAutopilotConfig] = useState<any>(null);
 
   useEffect(() => {
     loadData();
