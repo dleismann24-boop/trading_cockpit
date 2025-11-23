@@ -378,6 +378,47 @@ export default function Agenten() {
               </View>
             </View>
 
+            {/* Budget Settings */}
+            <View style={styles.budgetSection}>
+              <Text style={styles.budgetLabel}>💰 Max. Budget pro Trade</Text>
+              <Text style={styles.budgetDescription}>
+                Wie viel % des Portfolios darf ein einzelner Trade maximal nutzen?
+              </Text>
+              <View style={styles.budgetButtons}>
+                {[5, 10, 15, 20].map((percentage) => (
+                  <TouchableOpacity
+                    key={percentage}
+                    style={[
+                      styles.budgetButton,
+                      maxTradePercentage === percentage && styles.budgetButtonActive
+                    ]}
+                    onPress={() => {
+                      setMaxTradePercentage(percentage);
+                      if (autopilotEnabled) {
+                        // Update sofort wenn Autopilot läuft
+                        updateInterval(autopilotInterval);
+                      }
+                    }}
+                  >
+                    <Text
+                      style={[
+                        styles.budgetButtonText,
+                        maxTradePercentage === percentage && styles.budgetButtonTextActive
+                      ]}
+                    >
+                      {percentage}%
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+              <View style={styles.budgetInfoBox}>
+                <MaterialCommunityIcons name="calculator" size={16} color="#10b981" />
+                <Text style={styles.budgetInfoText}>
+                  Bei $100k Portfolio = max. ${(100000 * maxTradePercentage / 100).toFixed(0)} pro Trade
+                </Text>
+              </View>
+            </View>
+
             {/* Status Info */}
             {autopilotConfig && (
               <View style={styles.autopilotInfo}>
