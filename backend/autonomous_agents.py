@@ -15,6 +15,7 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 import os
 
 from trading_strategies import StrategyAnalyzer, RiskManager, TradingSignal
+from agent_memory import get_agent_memory
 
 logger = logging.getLogger(__name__)
 
