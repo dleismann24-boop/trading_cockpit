@@ -201,7 +201,8 @@ export default function Portfolio() {
               </View>
             </View>
           ))}
-        </View>
+          </View>
+        )}
 
         {positions.length === 0 && !loading && (
           <View style={styles.emptyState}>
