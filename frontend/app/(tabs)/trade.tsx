@@ -177,14 +177,117 @@ export default function Trade() {
 
           {/* Current Quote */}
           {currentQuote && (
-            <View style={styles.quoteCard}>
-              <Text style={styles.quoteSymbol}>{currentQuote.symbol}</Text>
-              <Text style={styles.quotePrice}>${currentQuote.price.toFixed(2)}</Text>
-              <View style={styles.quoteBidAsk}>
-                <Text style={styles.quoteBidAskText}>Bid: ${currentQuote.bid.toFixed(2)}</Text>
-                <Text style={styles.quoteBidAskText}>Ask: ${currentQuote.ask.toFixed(2)}</Text>
+            <>
+              <View style={styles.quoteCard}>
+                <Text style={styles.quoteSymbol}>{currentQuote.symbol}</Text>
+                <Text style={styles.quotePrice}>${currentQuote.price.toFixed(2)}</Text>
+                <View style={styles.quoteBidAsk}>
+                  <Text style={styles.quoteBidAskText}>Bid: ${currentQuote.bid.toFixed(2)}</Text>
+                  <Text style={styles.quoteBidAskText}>Ask: ${currentQuote.ask.toFixed(2)}</Text>
+                </View>
               </View>
-            </View>
+
+              {/* Firmeninformationen */}
+              <View style={styles.companyInfoCard}>
+                <View style={styles.infoHeader}>
+                  <MaterialCommunityIcons name="information" size={20} color="#f97316" />
+                  <Text style={styles.infoHeaderText}>Firmeninformationen</Text>
+                </View>
+                
+                {currentQuote.symbol === 'AAPL' && (
+                  <>
+                    <Text style={styles.companyName}>Apple Inc.</Text>
+                    <Text style={styles.companyDesc}>
+                      Apple entwickelt, produziert und verkauft Smartphones, Computer, Tablets und Wearables. 
+                      Marktführer im Premium-Segment.
+                    </Text>
+                    <View style={styles.infoGrid}>
+                      <View style={styles.infoItem}>
+                        <Text style={styles.infoLabel}>Marktkapitalisierung</Text>
+                        <Text style={styles.infoValue}>$2.8T</Text>
+                      </View>
+                      <View style={styles.infoItem}>
+                        <Text style={styles.infoLabel}>52-Wochen-Hoch</Text>
+                        <Text style={styles.infoValue}>$199.62</Text>
+                      </View>
+                      <View style={styles.infoItem}>
+                        <Text style={styles.infoLabel}>52-Wochen-Tief</Text>
+                        <Text style={styles.infoValue}>$164.08</Text>
+                      </View>
+                      <View style={styles.infoItem}>
+                        <Text style={styles.infoLabel}>Durchschn. Volumen</Text>
+                        <Text style={styles.infoValue}>52.4M</Text>
+                      </View>
+                    </View>
+                  </>
+                )}
+                
+                {currentQuote.symbol === 'TSLA' && (
+                  <>
+                    <Text style={styles.companyName}>Tesla Inc.</Text>
+                    <Text style={styles.companyDesc}>
+                      Tesla entwickelt und produziert Elektrofahrzeuge, Batteriespeicher und Solarpanels. 
+                      Pionier der Elektromobilität.
+                    </Text>
+                    <View style={styles.infoGrid}>
+                      <View style={styles.infoItem}>
+                        <Text style={styles.infoLabel}>Marktkapitalisierung</Text>
+                        <Text style={styles.infoValue}>$800B</Text>
+                      </View>
+                      <View style={styles.infoItem}>
+                        <Text style={styles.infoLabel}>52-Wochen-Hoch</Text>
+                        <Text style={styles.infoValue}>$299.29</Text>
+                      </View>
+                      <View style={styles.infoItem}>
+                        <Text style={styles.infoLabel}>52-Wochen-Tief</Text>
+                        <Text style={styles.infoValue}>$138.80</Text>
+                      </View>
+                      <View style={styles.infoItem}>
+                        <Text style={styles.infoLabel}>Durchschn. Volumen</Text>
+                        <Text style={styles.infoValue}>98.7M</Text>
+                      </View>
+                    </View>
+                  </>
+                )}
+                
+                {currentQuote.symbol === 'NVDA' && (
+                  <>
+                    <Text style={styles.companyName}>NVIDIA Corporation</Text>
+                    <Text style={styles.companyDesc}>
+                      NVIDIA entwickelt Grafikprozessoren und KI-Chips. Marktführer bei GPUs für Gaming, 
+                      Rechenzentren und künstliche Intelligenz.
+                    </Text>
+                    <View style={styles.infoGrid}>
+                      <View style={styles.infoItem}>
+                        <Text style={styles.infoLabel}>Marktkapitalisierung</Text>
+                        <Text style={styles.infoValue}>$1.2T</Text>
+                      </View>
+                      <View style={styles.infoItem}>
+                        <Text style={styles.infoLabel}>52-Wochen-Hoch</Text>
+                        <Text style={styles.infoValue}>$505.48</Text>
+                      </View>
+                      <View style={styles.infoItem}>
+                        <Text style={styles.infoLabel}>52-Wochen-Tief</Text>
+                        <Text style={styles.infoValue}>$108.13</Text>
+                      </View>
+                      <View style={styles.infoItem}>
+                        <Text style={styles.infoLabel}>Durchschn. Volumen</Text>
+                        <Text style={styles.infoValue}>320M</Text>
+                      </View>
+                    </View>
+                  </>
+                )}
+                
+                {!['AAPL', 'TSLA', 'NVDA'].includes(currentQuote.symbol) && (
+                  <>
+                    <Text style={styles.companyName}>{currentQuote.symbol}</Text>
+                    <Text style={styles.companyDesc}>
+                      Öffentlich gehandeltes Unternehmen. Weitere Informationen sind verfügbar nach der Marktanalyse.
+                    </Text>
+                  </>
+                )}
+              </View>
+            </>
           )}
 
           {/* Order-Typ Toggle */}
