@@ -38,7 +38,7 @@ class TradingController:
         }
         
         # Status
-        self.mode = TradingMode.SOLO
+        self.mode = TradingMode.CONSENSUS  # Gemeinsames Portfolio mit Abstimmung
         self.autopilot_enabled = False
         self.watchlist = ['AAPL', 'TSLA', 'NVDA', 'MSFT', 'GOOGL']
         self.user_constraints = []  # z.B. ["avoid_tech", "max_risk_low"]
