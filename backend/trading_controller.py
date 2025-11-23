@@ -7,8 +7,10 @@ import logging
 from typing import Dict, List, Optional
 from datetime import datetime, timedelta
 from enum import Enum
+import os
 
 from autonomous_agents import JordanAgent, BohlenAgent, FrodoAgent
+from sentiment_analyzer import get_sentiment_analyzer
 
 logger = logging.getLogger(__name__)
 
