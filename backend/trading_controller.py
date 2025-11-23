@@ -48,57 +48,144 @@ class TradingController:
         self.last_run = None
         self.next_run = None
     
-    async def run_trading_cycle(self) -> Dict:
+    async def run_trading_cycle(self, dry_run: bool = False) -> Dict:
         """
-        Führt einen Trading-Zyklus aus
-        Alle Agenten analysieren Watchlist und treffen Entscheidungen
+        Führt einen Trading-Zyklus aus mit GEMEINSAMER Portfolio-Verwaltung
+        Alle Agenten analysieren, diskutieren und stimmen ab
+        
+        Args:
+            dry_run: Wenn True, werden keine echten Trades ausgeführt (Simulation)
         """
         logger.info("=" * 60)
-        logger.info(f"🤖 Trading Cycle gestartet - Modus: {self.mode}")
+        logger.info(f"🤖 Trading Cycle gestartet - Modus: GEMEINSAMES PORTFOLIO")
+        if dry_run:
+            logger.info("🧪 DRY-RUN MODUS - Nur Simulation, keine echten Trades")
         logger.info("=" * 60)
         
         cycle_results = {
             'timestamp': datetime.utcnow().isoformat(),
-            'mode': self.mode,
+            'mode': 'shared_portfolio',
+            'dry_run': dry_run,
             'agents': {},
             'trades_executed': 0,
-            'total_cost': 0.0
+            'trades_proposed': 0,
+            'total_cost': 0.0,
+            'consensus_decisions': []
         }
         
-        # Für jeden Agent
-        for agent_name, agent in self.agents.items():
-            logger.info(f"\n--- {agent.name} analysiert Markt ---")
-            agent_trades = []
-            
-            # Durch Watchlist gehen
-            for symbol in self.watchlist:
-                try:
-                    # User-Constraints prüfen
-                    if self._should_skip_symbol(symbol):
-                        logger.info(f"{agent.name}: Skipped {symbol} (User-Constraint)")
+        # Durch Watchlist gehen - GEMEINSAME Diskussion pro Symbol
+        for symbol in self.watchlist:
+            try:
+                logger.info(f"\n{'='*50}")
+                logger.info(f"💬 Diskussion über {symbol}")
+                logger.info(f"{'='*50}")
+                
+                # User-Constraints prüfen
+                if self._should_skip_symbol(symbol):
+                    logger.info(f"⏭️  Überspringe {symbol} (User-Constraint)")
+                    continue
+                
+                # Alle Agenten analysieren und geben ihre Meinung ab
+                proposals = []
+                for agent_name, agent in self.agents.items():
+                    logger.info(f"\n🤔 {agent.name} analysiert {symbol}...")
+                    
+                    # Get agent's analysis (ohne Trade-Ausführung)
+                    prices = await agent._get_price_history(symbol)
+                    if not prices:
                         continue
                     
-                    # Agent-Entscheidung
-                    decision = await agent.make_trading_decision(symbol)
+                    current_price = prices[-1]
+                    technical_signal = agent.strategy_analyzer.analyze_momentum_strategy(prices)
                     
-                    if decision:
-                        agent_trades.append(decision)
-                        cycle_results['trades_executed'] += 1
+                    account = self.trading_client.get_account()
+                    current_cash = float(account.cash)
+                    portfolio_value = float(account.portfolio_value)
+                    
+                    # LLM consultation
+                    decision = await agent._consult_llm(
+                        symbol, current_price, technical_signal,
+                        current_cash, portfolio_value
+                    )
+                    
+                    proposals.append({
+                        'agent': agent.name,
+                        'action': decision['action'],
+                        'confidence': decision['confidence'],
+                        'reason': decision['reason'],
+                        'price': current_price
+                    })
+                    
+                    logger.info(f"   → {agent.name}: {decision['action']} (Confidence: {decision['confidence']:.2f})")
+                    logger.info(f"      Begründung: {decision['reason']}")
+                
+                cycle_results['trades_proposed'] += len(proposals)
+                
+                # Konsens-Entscheidung: Mehrheit (2/3) muss zustimmen
+                buy_votes = sum(1 for p in proposals if p['action'] == 'BUY')
+                sell_votes = sum(1 for p in proposals if p['action'] == 'SELL')
+                hold_votes = sum(1 for p in proposals if p['action'] == 'HOLD')
+                
+                logger.info(f"\n📊 Abstimmung: BUY={buy_votes}, SELL={sell_votes}, HOLD={hold_votes}")
+                
+                consensus = None
+                if buy_votes >= 2:
+                    consensus = 'BUY'
+                    avg_confidence = sum(p['confidence'] for p in proposals if p['action'] == 'BUY') / buy_votes
+                elif sell_votes >= 2:
+                    consensus = 'SELL'
+                    avg_confidence = sum(p['confidence'] for p in proposals if p['action'] == 'SELL') / sell_votes
+                else:
+                    logger.info(f"❌ Kein Konsens erreicht - HOLD")
+                    continue
+                
+                logger.info(f"✅ Konsens erreicht: {consensus} (Avg. Confidence: {avg_confidence:.2f})")
+                
+                # Trade ausführen (nur wenn nicht dry-run)
+                if not dry_run:
+                    # Positionsgröße berechnen (max 10% des Portfolios)
+                    quantity = int((portfolio_value * 0.10) / current_price)
+                    
+                    if quantity > 0:
+                        # Führe Trade aus
+                        from alpaca.trading.requests import MarketOrderRequest
+                        from alpaca.trading.enums import OrderSide, TimeInForce
                         
-                except Exception as e:
-                    logger.error(f"{agent.name}: Error analyzing {symbol}: {e}")
-            
-            cycle_results['agents'][agent_name] = {
-                'trades': agent_trades,
-                'performance': agent.get_performance_stats()
-            }
+                        side = OrderSide.BUY if consensus == 'BUY' else OrderSide.SELL
+                        order_data = MarketOrderRequest(
+                            symbol=symbol,
+                            qty=quantity,
+                            side=side,
+                            time_in_force=TimeInForce.DAY
+                        )
+                        
+                        order = self.trading_client.submit_order(order_data)
+                        logger.info(f"🚀 Trade ausgeführt: {consensus} {quantity} {symbol} @ ${current_price:.2f}")
+                        
+                        cycle_results['trades_executed'] += 1
+                else:
+                    logger.info(f"🧪 DRY-RUN: Würde {consensus} {symbol} @ ${current_price:.2f} ausführen")
+                    cycle_results['trades_executed'] += 1
+                
+                cycle_results['consensus_decisions'].append({
+                    'symbol': symbol,
+                    'consensus': consensus,
+                    'confidence': avg_confidence,
+                    'proposals': proposals,
+                    'executed': not dry_run
+                })
+                
+            except Exception as e:
+                logger.error(f"Error bei {symbol}: {e}")
         
         # Session speichern
         self.trading_sessions.append(cycle_results)
         self.last_run = datetime.utcnow()
         
         logger.info("=" * 60)
-        logger.info(f"✅ Trading Cycle abgeschlossen - {cycle_results['trades_executed']} Trades")
+        logger.info(f"✅ Trading Cycle abgeschlossen")
+        logger.info(f"   Vorschläge: {cycle_results['trades_proposed']}")
+        logger.info(f"   Ausgeführt: {cycle_results['trades_executed']}")
         logger.info("=" * 60)
         
         return cycle_results
