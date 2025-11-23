@@ -732,6 +732,19 @@ async def startup_event():
     if controller:
         scheduler.set_trading_controller(controller)
     
+    # Restore autopilot config from DB
+    try:
+        saved_config = await db.autopilot_config.find_one({"_id": "main"})
+        if saved_config and saved_config.get('enabled'):
+            autopilot_config['enabled'] = saved_config['enabled']
+            autopilot_config['interval_minutes'] = saved_config['interval_minutes']
+            
+            # Restart scheduler
+            scheduler.start_autopilot(saved_config['interval_minutes'])
+            logger.info(f"✅ Autopilot wiederhergestellt - {saved_config['interval_minutes']}min Intervall")
+    except Exception as e:
+        logger.error(f"Fehler beim Wiederherstellen des Autopilots: {e}")
+    
     logger.info("✅ Autopilot Scheduler ready")
 
 @app.on_event("shutdown")
