@@ -115,9 +115,21 @@ export default function Portfolio() {
           </TouchableOpacity>
         </View>
 
-        {/* Positions List */}
-        <View style={styles.positionsList}>
-          {sortedPositions.map((position, index) => (
+        {/* Positions List or Empty State */}
+        {positions.length === 0 ? (
+          <View style={styles.emptyState}>
+            <MaterialCommunityIcons name="sleep" size={64} color="#555" />
+            <Text style={styles.emptyTitle}>Markt geschlossen</Text>
+            <Text style={styles.emptyDescription}>
+              Aktuell sind keine Positionen vorhanden.
+            </Text>
+            <Text style={styles.emptyHint}>
+              💡 Tipp: Nutze die "Simulation" im Agenten-Tab, um zu sehen was die KIs machen würden!
+            </Text>
+          </View>
+        ) : (
+          <View style={styles.positionsList}>
+            {sortedPositions.map((position, index) => (
             <View key={index} style={styles.positionCard}>
               <View style={styles.positionHeader}>
                 <View style={styles.symbolContainer}>
