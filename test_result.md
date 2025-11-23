@@ -212,15 +212,16 @@ metadata:
 
 test_plan:
   current_focus:
-    - "GET /api/autonomous/status - Status der autonomen Agenten"
-    - "GET /api/autonomous/leaderboard - Performance-Ranking der Agenten"
-    - "GET /api/autonomous/autopilot/status - Autopilot-Konfiguration abrufen"
-    - "POST /api/autonomous/autopilot/configure - Autopilot konfigurieren"
-    - "POST /api/autonomous/start-cycle - Trading-Zyklus starten"
-  stuck_tasks: []
+    - "GET /api/market/status - Markt-Status prüfen"
+    - "POST /api/autonomous/start-cycle - DRY-RUN Trading-Zyklus (Simulation)"
+    - "POST /api/autonomous/start-cycle - Normaler Trading-Zyklus (Konsens-Voting)"
+  stuck_tasks: 
+    - "POST /api/autonomous/start-cycle - DRY-RUN Trading-Zyklus (Simulation)"
   test_all: false
   test_priority: "high_first"
 
 agent_communication:
     - agent: "testing"
       message: "Alle 5 autonomen Trading-Endpoints erfolgreich getestet. 4/5 Endpoints antworten sofort, start-cycle braucht ~30-40 Sekunden für AI-Entscheidungen aber funktioniert korrekt. Jordan und Bohlen Agenten führen aktiv Trades aus, Frodo Agent bleibt konservativ. Alpaca Paper Trading und LLM-Integration funktionieren."
+    - agent: "testing"
+      message: "NEUE FEATURES GETESTET: ✅ Market Status funktioniert korrekt. ✅ Konsens-Voting System funktioniert perfekt - alle 3 Agenten (Jordan/GPT-4, Bohlen/Claude-3.5, Frodo/Gemini-2.5) diskutieren detailliert und stimmen ab. Trades werden nur bei 2/3 Mehrheit ausgeführt. ❌ BUG GEFUNDEN: DRY-RUN Modus inkrementiert fälschlicherweise trades_executed (Zeile 168 in trading_controller.py). Ansonsten funktionieren alle neuen Features korrekt."
