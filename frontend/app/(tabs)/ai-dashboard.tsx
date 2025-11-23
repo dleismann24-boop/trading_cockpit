@@ -93,7 +93,7 @@ export default function AIDashboard() {
       <SafeAreaView style={styles.container} edges={['top']}>
         <View style={styles.header}>
           <View>
-            <Text style={styles.headerTitle}>AI Command Center</Text>
+            <Text style={styles.headerTitle}>KI-Kommandozentrale</Text>
             <Text style={styles.headerSubtitle}>Jordan • Bohlen • Frodo</Text>
           </View>
           <View style={styles.avatarContainer}>
@@ -102,13 +102,13 @@ export default function AIDashboard() {
         </View>
 
         <ScrollView style={styles.scrollView}>
-          {/* Auto-Pilot Control */}
+          {/* Autopilot Control */}
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
               <View>
-                <Text style={styles.sectionTitle}>Auto-Pilot</Text>
+                <Text style={styles.sectionTitle}>Autopilot</Text>
                 <Text style={styles.sectionSubtitle}>
-                  Let the 3 AIs manage your portfolio
+                  Lass die 3 KIs dein Portfolio verwalten
                 </Text>
               </View>
               <Switch
@@ -122,10 +122,10 @@ export default function AIDashboard() {
             {autoPilotEnabled && (
               <View style={styles.autopilotCard}>
                 <Text style={styles.autopilotStatus}>
-                  🤖 Auto-Pilot Active
+                  🤖 Autopilot Active
                 </Text>
                 <Text style={styles.autopilotLimit}>
-                  Max trade size: 10% of portfolio ($
+                  Max. Trade-Größe: 10% of portfolio ($
                   {account ? (account.portfolio_value * 0.1).toFixed(0) : '10,000'})
                 </Text>
                 <TouchableOpacity
@@ -138,7 +138,7 @@ export default function AIDashboard() {
                   ) : (
                     <>
                       <MaterialCommunityIcons name="radar" size={20} color="#fff" />
-                      <Text style={styles.analyzeButtonText}>Run Analysis Now</Text>
+                      <Text style={styles.analyzeButtonText}>Analyse jetzt starten</Text>
                     </>
                   )}
                 </TouchableOpacity>
@@ -146,13 +146,13 @@ export default function AIDashboard() {
             )}
           </View>
 
-          {/* Auto-Pilot Results */}
+          {/* Autopilot Results */}
           {autopilotResults && (
             <View style={styles.resultsCard}>
-              <Text style={styles.resultsTitle}>Auto-Pilot Recommendation</Text>
+              <Text style={styles.resultsTitle}>Autopilot Recommendation</Text>
               <View style={styles.consensusBar}>
                 <View style={styles.consensusLabel}>
-                  <Text style={styles.consensusText}>Consensus Strength</Text>
+                  <Text style={styles.consensusText}>Konsens-Stärke</Text>
                   <Text style={styles.consensusValue}>
                     {(autopilotResults.consensus_strength * 100).toFixed(0)}%
                   </Text>
@@ -194,11 +194,11 @@ export default function AIDashboard() {
             </View>
           )}
 
-          {/* Deep Research */}
+          {/* Tiefenanalyse */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Deep Research</Text>
+            <Text style={styles.sectionTitle}>Tiefenanalyse</Text>
             <Text style={styles.sectionSubtitle}>
-              Get all 3 AIs to analyze any market question
+              Lass alle 3 KIs jede Marktfrage analysieren
             </Text>
 
             <View style={styles.searchContainer}>
@@ -220,17 +220,17 @@ export default function AIDashboard() {
                 ) : (
                   <>
                     <MaterialCommunityIcons name="telescope" size={20} color="#fff" />
-                    <Text style={styles.researchButtonText}>Research</Text>
+                    <Text style={styles.researchButtonText}>Analysieren</Text>
                   </>
                 )}
               </TouchableOpacity>
             </View>
           </View>
 
-          {/* Research Results */}
+          {/* Analyse-Ergebnisse */}
           {researchResults && (
             <View style={styles.resultsCard}>
-              <Text style={styles.resultsTitle}>Research Results</Text>
+              <Text style={styles.resultsTitle}>Analyse-Ergebnisse</Text>
               <View style={styles.aiOpinions}>
                 <View style={styles.aiOpinion}>
                   <Text style={styles.aiName}>🏀 Jordan (GPT-4)</Text>
@@ -257,7 +257,7 @@ export default function AIDashboard() {
           <View style={styles.disclaimer}>
             <MaterialCommunityIcons name="shield-alert" size={16} color="#ef4444" />
             <Text style={styles.disclaimerText}>
-              AI suggestions are not financial advice. Always do your own research.
+              KI-Vorschläge sind keine Finanzberatung. Mach immer deine eigene Recherche.
             </Text>
           </View>
         </ScrollView>
