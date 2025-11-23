@@ -12,7 +12,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTradingStore } from '../../store/tradingStore';
 
 export default function Portfolio() {
-  const { positions, fetchPositions, loading } = useTradingStore();
+  const { Positionen, fetchPositions, loading } = useTradingStore();
   const [refreshing, setRefreshing] = useState(false);
   const [sortBy, setSortBy] = useState<'value' | 'return'>('value');
 
@@ -34,15 +34,15 @@ export default function Portfolio() {
     }
   });
 
-  const totalValue = positions.reduce((sum, pos) => sum + pos.market_value, 0);
-  const totalPL = positions.reduce((sum, pos) => sum + pos.unrealized_pl, 0);
+  const totalValue = Positionen.reduce((sum, pos) => sum + pos.market_value, 0);
+  const totalPL = Positionen.reduce((sum, pos) => sum + pos.unrealized_pl, 0);
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
         <View>
           <Text style={styles.headerTitle}>Your Lineup</Text>
-          <Text style={styles.headerSubtitle}>{positions.length} positions</Text>
+          <Text style={styles.headerSubtitle}>{positions.length} Positionen</Text>
         </View>
         <MaterialCommunityIcons name="trophy" size={32} color="#f97316" />
       </View>
@@ -60,13 +60,13 @@ export default function Portfolio() {
         {/* Portfolio Summary */}
         <View style={styles.summaryCard}>
           <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Total Value</Text>
+            <Text style={styles.summaryLabel}>Gesamtwert</Text>
             <Text style={styles.summaryValue}>
               ${totalValue.toLocaleString('en-US', { minimumFractionDigits: 2 })}
             </Text>
           </View>
           <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Total Return</Text>
+            <Text style={styles.summaryLabel}>Gesamtgewinn</Text>
             <Text
               style={[
                 styles.summaryValue,
@@ -94,7 +94,7 @@ export default function Portfolio() {
                 sortBy === 'value' && styles.sortButtonTextActive,
               ]}
             >
-              By Value
+              Nach Wert
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -110,7 +110,7 @@ export default function Portfolio() {
                 sortBy === 'return' && styles.sortButtonTextActive,
               ]}
             >
-              By Return
+              Nach Rendite
             </Text>
           </TouchableOpacity>
         </View>
@@ -126,7 +126,7 @@ export default function Portfolio() {
                   </View>
                   <View>
                     <Text style={styles.positionQty}>
-                      {position.quantity} shares
+                      {position.quantity} Aktien
                     </Text>
                     <Text style={styles.avgPrice}>
                       Avg: ${position.avg_price.toFixed(2)}
@@ -160,7 +160,7 @@ export default function Portfolio() {
 
               <View style={styles.positionFooter}>
                 <View>
-                  <Text style={styles.plLabel}>Unrealized P/L</Text>
+                  <Text style={styles.plLabel}>Unrealisierter Gewinn/Verlust</Text>
                   <Text
                     style={[
                       styles.plValue,
@@ -194,8 +194,8 @@ export default function Portfolio() {
         {positions.length === 0 && !loading && (
           <View style={styles.emptyState}>
             <MaterialCommunityIcons name="basketball" size={64} color="#444" />
-            <Text style={styles.emptyText}>No positions yet</Text>
-            <Text style={styles.emptySubtext}>Time to build your lineup!</Text>
+            <Text style={styles.emptyText}>No Positionen yet</Text>
+            <Text style={styles.emptySubtext}>Zeit, dein Portfolio aufzubauen!</Text>
           </View>
         )}
       </ScrollView>
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
   sortButtonTextActive: {
     color: '#fff',
   },
-  positionsList: {
+  PositionenList: {
     paddingHorizontal: 20,
     paddingBottom: 20,
   },
