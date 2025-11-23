@@ -186,17 +186,6 @@ export default function Agenten() {
         <View>
           <Text style={styles.headerTitle}>Autonome Agenten</Text>
           <View style={styles.headerInfo}>
-            <View style={styles.modeBadge}>
-              <MaterialCommunityIcons 
-                name={status?.mode === 'consensus' ? 'handshake' : status?.mode === 'guided' ? 'compass' : 'account'} 
-                size={14} 
-                color="#10b981" 
-              />
-              <Text style={styles.modeBadgeText}>
-                {status?.mode === 'consensus' ? 'Konsens-Modus' : 
-                 status?.mode === 'guided' ? 'Geführt' : 'Solo'}
-              </Text>
-            </View>
             <View style={[styles.marketBadge, marketOpen ? styles.marketOpen : styles.marketClosed]}>
               <View style={[styles.marketDot, marketOpen ? styles.marketDotOpen : styles.marketDotClosed]} />
               <Text style={styles.marketBadgeText}>
