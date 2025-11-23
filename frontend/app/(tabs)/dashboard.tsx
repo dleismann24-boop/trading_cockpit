@@ -62,7 +62,7 @@ export default function Dashboard() {
         {/* Header */}
         <View style={styles.header}>
           <View>
-            <Text style={styles.greeting}>Welcome to the Court</Text>
+            <Text style={styles.greeting}>Willkommen auf dem Court</Text>
             <Text style={styles.userName}>Wookie Mann & Funky Danki</Text>
           </View>
           <MaterialCommunityIcons name="basketball" size={40} color="#f97316" />
@@ -70,7 +70,7 @@ export default function Dashboard() {
 
         {/* Portfolio Value Card */}
         <View style={styles.mainCard}>
-          <Text style={styles.cardLabel}>Portfolio Value</Text>
+          <Text style={styles.cardLabel}>Portfolio-Wert</Text>
           <Text style={styles.mainValue}>
             ${account?.portfolio_value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '32,395.40'}
           </Text>
