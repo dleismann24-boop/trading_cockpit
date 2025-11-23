@@ -544,6 +544,7 @@ const styles = StyleSheet.create({
   },
   agentIcon: {
     fontSize: 32,
+    lineHeight: 36,
   },
   agentName: {
     fontSize: 18,
