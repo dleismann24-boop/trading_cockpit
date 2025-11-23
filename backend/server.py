@@ -669,7 +669,10 @@ async def configure_autopilot(request: AutopilotConfigRequest):
         autopilot_config['enabled'] = request.enabled
         autopilot_config['interval_minutes'] = request.interval_minutes
         autopilot_config['max_trade_percentage'] = request.max_trade_percentage
-        autopilot_config['max_budget_per_agent'] = request.max_budget_per_agent
+        autopilot_config['jordan_solo_budget'] = request.jordan_solo_budget
+        autopilot_config['bohlen_solo_budget'] = request.bohlen_solo_budget
+        autopilot_config['frodo_solo_budget'] = request.frodo_solo_budget
+        autopilot_config['shared_consensus_budget'] = request.shared_consensus_budget
         
         # Get scheduler
         scheduler = get_autopilot_scheduler()
