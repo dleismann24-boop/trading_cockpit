@@ -653,14 +653,34 @@ async def configure_autopilot(request: AutopilotConfigRequest):
         autopilot_config['enabled'] = request.enabled
         autopilot_config['interval_minutes'] = request.interval_minutes
         
+        # Get scheduler
+        scheduler = get_autopilot_scheduler()
+        
+        # Set trading controller if not set
+        controller = get_trading_controller(trading_client, data_client)
+        if controller:
+            scheduler.set_trading_controller(controller)
+            scheduler.set_trading_client(trading_client)
+        
         if request.enabled:
-            next_run = datetime.utcnow() + timedelta(minutes=request.interval_minutes)
-            autopilot_config['next_run'] = next_run.isoformat()
+            # Start scheduler
+            success = scheduler.start_autopilot(request.interval_minutes)
+            if success:
+                next_run = scheduler.get_next_run()
+                autopilot_config['next_run'] = next_run.isoformat() if next_run else None
+                autopilot_config['last_run'] = None
+                logger.info(f"✅ Autopilot aktiviert - {request.interval_minutes}min Intervall")
+            else:
+                raise HTTPException(status_code=500, detail="Scheduler konnte nicht gestartet werden")
         else:
+            # Stop scheduler
+            scheduler.stop_autopilot()
             autopilot_config['next_run'] = None
+            logger.info("⏸️  Autopilot deaktiviert")
         
         return {"success": True, "config": autopilot_config}
     except Exception as e:
+        logger.error(f"Autopilot config error: {e}")
         raise HTTPException(status_code=400, detail=str(e))
 
 @api_router.get("/autonomous/autopilot/status")
