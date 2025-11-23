@@ -202,10 +202,10 @@ async def get_positions():
         if trading_client:
             positions = trading_client.get_all_positions()
             
-            # Falls keine Positionen (Markt geschlossen), zeige Mock-Daten
+            # Falls keine Positionen, return empty list
             if len(positions) == 0:
-                logging.info("No positions found, returning mock data (market closed)")
-                return [PositionResponse(**pos) for pos in MOCK_POSITIONS]
+                logging.info("No positions found (market closed or no trades yet)")
+                return []
             
             return [
                 PositionResponse(
