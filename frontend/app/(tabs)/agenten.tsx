@@ -244,59 +244,71 @@ export default function Agenten() {
           )}
         </View>
 
-        {/* Leaderboard */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Leaderboard</Text>
-          
-          {leaderboard.map((agent, index) => (
-            <View key={index} style={styles.leaderboardCard}>
-              <View style={styles.leaderboardHeader}>
-                <View style={styles.agentInfo}>
-                  <Text style={styles.agentIcon}>{getAgentIcon(agent.agent)}</Text>
-                  <View>
-                    <Text style={styles.agentName}>{agent.agent}</Text>
-                    <Text style={styles.agentRank}>Rang #{agent.rank}</Text>
+        {/* Leaderboard mit neuen Features */}
+        {leaderboard.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>🏆 Performance-Ranking</Text>
+            {leaderboard.map((agent, index) => (
+              <View key={agent.name} style={styles.agentCard}>
+                <View style={styles.agentHeader}>
+                  <View style={styles.agentNameContainer}>
+                    <Text style={styles.agentRank}>#{index + 1}</Text>
+                    <Text style={styles.agentIcon}>
+                      {agent.name === 'Jordan' ? '🏀' : 
+                       agent.name === 'Bohlen' ? '🎤' : '🧙'}
+                    </Text>
+                    <Text style={styles.agentName}>{agent.name}</Text>
+                  </View>
+                  <Text style={[
+                    styles.agentPL,
+                    agent.total_profit_loss >= 0 ? styles.profitText : styles.lossText
+                  ]}>
+                    {agent.total_profit_loss >= 0 ? '+' : ''}
+                    ${agent.total_profit_loss?.toFixed(2) || '0.00'}
+                  </Text>
+                </View>
+                
+                {/* NEW: Memory Stats */}
+                {agent.memory_stats && (
+                  <View style={styles.memorySection}>
+                    <View style={styles.memoryRow}>
+                      <MaterialCommunityIcons name="brain" size={14} color="#f97316" />
+                      <Text style={styles.memoryLabel}>Win-Rate:</Text>
+                      <Text style={[
+                        styles.memoryValue,
+                        agent.memory_stats.win_rate >= 0.6 ? styles.goodStat : styles.badStat
+                      ]}>
+                        {(agent.memory_stats.win_rate * 100).toFixed(0)}%
+                      </Text>
+                    </View>
+                    {agent.memory_stats.best_symbol && (
+                      <View style={styles.memoryRow}>
+                        <MaterialCommunityIcons name="star" size={14} color="#10b981" />
+                        <Text style={styles.memoryLabel}>Stark bei:</Text>
+                        <Text style={styles.memoryValue}>{agent.memory_stats.best_symbol}</Text>
+                      </View>
+                    )}
+                  </View>
+                )}
+                
+                <View style={styles.statsGrid}>
+                  <View style={styles.statItem}>
+                    <Text style={styles.statLabel}>Trades</Text>
+                    <Text style={styles.statValue}>{agent.trades_executed || 0}</Text>
+                  </View>
+                  <View style={styles.statItem}>
+                    <Text style={styles.statLabel}>Erfolg</Text>
+                    <Text style={styles.statValue}>{agent.successful_trades || 0}</Text>
+                  </View>
+                  <View style={styles.statItem}>
+                    <Text style={styles.statLabel}>KI-Kosten</Text>
+                    <Text style={styles.statValue}>${agent.total_llm_cost?.toFixed(2) || '0.00'}</Text>
                   </View>
                 </View>
-                <View style={[styles.rankBadge, { backgroundColor: getAgentColor(agent.rank) }]}>
-                  <Text style={styles.rankText}>{agent.rank}</Text>
-                </View>
               </View>
-
-              <View style={styles.statsGrid}>
-                <View style={styles.statBox}>
-                  <Text style={styles.statLabel}>Trades</Text>
-                  <Text style={styles.statValue}>{agent.total_trades}</Text>
-                </View>
-                <View style={styles.statBox}>
-                  <Text style={styles.statLabel}>Erfolgsrate</Text>
-                  <Text style={styles.statValue}>
-                    {(agent.success_rate * 100).toFixed(0)}%
-                  </Text>
-                </View>
-                <View style={styles.statBox}>
-                  <Text style={styles.statLabel}>P&L</Text>
-                  <Text
-                    style={[
-                      styles.statValue,
-                      { color: agent.total_pnl >= 0 ? '#10b981' : '#ef4444' },
-                    ]}
-                  >
-                    ${agent.total_pnl.toFixed(2)}
-                  </Text>
-                </View>
-              </View>
-            </View>
-          ))}
-
-          {leaderboard.length === 0 && (
-            <View style={styles.emptyState}>
-              <MaterialCommunityIcons name="trophy-outline" size={48} color="#666" />
-              <Text style={styles.emptyText}>Noch keine Daten</Text>
-              <Text style={styles.emptySubtext}>Starte den ersten Trading-Zyklus</Text>
-            </View>
-          )}
-        </View>
+            ))}
+          </View>
+        )}
 
         {/* Agent Status Details */}
         {status?.agents_status && (
