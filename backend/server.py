@@ -521,6 +521,120 @@ async def get_ai_stats():
     except Exception as e:
         return {"success": False, "error": str(e)}
 
+# ============ AUTONOME TRADING ENDPOINTS ============
+
+from trading_controller import get_trading_controller, TradingMode
+
+@api_router.post("/autonomous/start-cycle")
+async def start_trading_cycle():
+    """Startet einen Trading-Zyklus mit allen Agenten"""
+    try:
+        controller = get_trading_controller(trading_client, data_client)
+        if not controller:
+            raise HTTPException(status_code=500, detail="Controller nicht initialisiert")
+        
+        results = await controller.run_trading_cycle()
+        
+        # Speicher in DB
+        await db.trading_cycles.insert_one({
+            **results,
+            'saved_at': datetime.utcnow()
+        })
+        
+        return {"success": True, "results": results}
+    except Exception as e:
+        logger.error(f"Trading cycle error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/autonomous/status")
+async def get_autonomous_status():
+    """Status der autonomen Agenten"""
+    try:
+        controller = get_trading_controller(trading_client, data_client)
+        if not controller:
+            return {"success": False, "error": "Controller nicht initialisiert"}
+        
+        return {"success": True, "status": controller.get_status()}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+@api_router.get("/autonomous/leaderboard")
+async def get_leaderboard():
+    """Performance-Ranking der Agenten"""
+    try:
+        controller = get_trading_controller(trading_client, data_client)
+        if not controller:
+            return {"success": False, "error": "Controller nicht initialisiert"}
+        
+        return {"success": True, "leaderboard": controller.get_leaderboard()}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+class ModeChangeRequest(BaseModel):
+    mode: str  # "solo", "consensus", "guided"
+
+@api_router.post("/autonomous/set-mode")
+async def set_trading_mode(request: ModeChangeRequest):
+    """Trading-Modus ändern"""
+    try:
+        controller = get_trading_controller(trading_client, data_client)
+        if not controller:
+            raise HTTPException(status_code=500, detail="Controller nicht initialisiert")
+        
+        controller.mode = TradingMode(request.mode)
+        return {"success": True, "mode": request.mode}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+class ConstraintsRequest(BaseModel):
+    constraints: List[str]
+
+@api_router.post("/autonomous/set-constraints")
+async def set_user_constraints(request: ConstraintsRequest):
+    """User-Vorgaben setzen (Guided Mode)"""
+    try:
+        controller = get_trading_controller(trading_client, data_client)
+        if not controller:
+            raise HTTPException(status_code=500, detail="Controller nicht initialisiert")
+        
+        controller.set_user_constraints(request.constraints)
+        return {"success": True, "constraints": request.constraints}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+class AutopilotConfigRequest(BaseModel):
+    enabled: bool
+    interval_minutes: int = 60  # Standard: jede Stunde
+
+autopilot_config = {
+    'enabled': False,
+    'interval_minutes': 60,
+    'last_run': None,
+    'next_run': None
+}
+
+@api_router.post("/autonomous/autopilot/configure")
+async def configure_autopilot(request: AutopilotConfigRequest):
+    """Autopilot konfigurieren"""
+    try:
+        autopilot_config['enabled'] = request.enabled
+        autopilot_config['interval_minutes'] = request.interval_minutes
+        
+        if request.enabled:
+            next_run = datetime.utcnow() + timedelta(minutes=request.interval_minutes)
+            autopilot_config['next_run'] = next_run.isoformat()
+        else:
+            autopilot_config['next_run'] = None
+        
+        return {"success": True, "config": autopilot_config}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@api_router.get("/autonomous/autopilot/status")
+async def get_autopilot_status():
+    """Autopilot-Status abrufen"""
+    return {"success": True, "config": autopilot_config}
+
 # Include the router in the main app
 app.include_router(api_router)
 
