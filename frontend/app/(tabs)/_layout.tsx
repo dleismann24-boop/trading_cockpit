@@ -25,7 +25,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="dashboard"
         options={{
-          title: 'Court',
+          title: 'Übersicht',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="view-dashboard" size={size} color={color} />
           ),
@@ -34,7 +34,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="portfolio"
         options={{
-          title: 'Lineup',
+          title: 'Portfolio',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="briefcase" size={size} color={color} />
           ),
@@ -43,7 +43,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="trade"
         options={{
-          title: 'Play',
+          title: 'Handeln',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="basket" size={size + 4} color={color} />
           ),
@@ -52,7 +52,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="ai-dashboard"
         options={{
-          title: 'AI Center',
+          title: 'KI-Zentrale',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="brain" size={size} color={color} />
           ),
