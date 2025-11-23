@@ -25,7 +25,9 @@ def test_endpoint(method, endpoint, payload=None, expected_status=200):
             response = requests.get(url, timeout=30)
         elif method == "POST":
             print(f"Payload: {json.dumps(payload, indent=2)}")
-            response = requests.post(url, json=payload, timeout=30)
+            # Longer timeout for trading cycle endpoints (LLM consultations take time)
+            timeout = 120 if "/start-cycle" in endpoint else 30
+            response = requests.post(url, json=payload, timeout=timeout)
         else:
             raise ValueError(f"Unsupported method: {method}")
         
