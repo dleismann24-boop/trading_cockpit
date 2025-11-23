@@ -133,7 +133,8 @@ Format:
             
             llm = LlmChat(
                 api_key=self.llm_key,
-                session_id=f"sentiment_twitter_{symbol}_{datetime.now().timestamp()}"
+                session_id=f"sentiment_twitter_{symbol}_{datetime.now().timestamp()}",
+                system_message="You are a financial market sentiment analyzer."
             ).with_model("openai", "gpt-4")
             
             response = await asyncio.to_thread(
