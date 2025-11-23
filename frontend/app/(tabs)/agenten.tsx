@@ -20,6 +20,8 @@ export default function Agenten() {
   const [status, setStatus] = useState<any>(null);
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const [cycleRunning, setCycleRunning] = useState(false);
+  const [simulationResults, setSimulationResults] = useState<any>(null);
+  const [showSimulationModal, setShowSimulationModal] = useState(false);
   
   // Autopilot State
   const [autopilotEnabled, setAutopilotEnabled] = useState(false);
