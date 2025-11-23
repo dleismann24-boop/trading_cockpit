@@ -80,7 +80,7 @@ class AutonomousAgent:
         """Get personality-specific system message"""
         raise NotImplementedError("Subclass must implement")
     
-    async def make_trading_decision(self, symbol: str) -> Optional[Dict]:
+    async def make_trading_decision(self, symbol: str, sentiment_data: Dict = None) -> Optional[Dict]:
         """
         Main decision-making process
         1. Get market data
