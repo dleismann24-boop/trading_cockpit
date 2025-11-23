@@ -87,6 +87,11 @@ class TradingController:
                     logger.info(f"⏭️  Überspringe {symbol} (User-Constraint)")
                     continue
                 
+                # Get Sentiment für dieses Symbol
+                sentiment_analyzer = get_sentiment_analyzer(os.getenv('EMERGENT_LLM_KEY'))
+                sentiment_data = await sentiment_analyzer.get_comprehensive_sentiment(symbol)
+                logger.info(f"📊 Sentiment für {symbol}: {sentiment_data.get('summary', 'N/A')}")
+                
                 # Alle Agenten analysieren und geben ihre Meinung ab
                 proposals = []
                 for agent_name, agent in self.agents.items():
@@ -104,10 +109,10 @@ class TradingController:
                     current_cash = float(account.cash)
                     portfolio_value = float(account.portfolio_value)
                     
-                    # LLM consultation
+                    # LLM consultation MIT Sentiment
                     decision = await agent._consult_llm(
                         symbol, current_price, technical_signal,
-                        current_cash, portfolio_value
+                        current_cash, portfolio_value, sentiment_data
                     )
                     
                     proposals.append({
