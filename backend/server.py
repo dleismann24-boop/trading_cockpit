@@ -631,7 +631,7 @@ async def configure_autopilot(request: AutopilotConfigRequest):
         raise HTTPException(status_code=400, detail=str(e))
 
 @api_router.get("/autonomous/autopilot/status")
-async def get_autopilot_status():
+async def get_autonomous_autopilot_status():
     """Autopilot-Status abrufen"""
     return {"success": True, "config": autopilot_config}
 
