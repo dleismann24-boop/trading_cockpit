@@ -73,6 +73,7 @@ export default function Agenten() {
       const response = await axios.post(`${API_URL}/api/autonomous/autopilot/configure`, {
         enabled,
         interval_minutes: autopilotInterval,
+        max_trade_percentage: maxTradePercentage
       });
 
       if (response.data.success) {
