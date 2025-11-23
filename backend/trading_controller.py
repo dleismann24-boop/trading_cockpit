@@ -142,10 +142,10 @@ class TradingController:
                 logger.info(f"✅ Konsens erreicht: {consensus} (Avg. Confidence: {avg_confidence:.2f})")
                 
                 # Trade ausführen (nur wenn nicht dry-run)
+                # Positionsgröße berechnen (max 10% des Portfolios)
+                quantity = int((portfolio_value * 0.10) / current_price)
+                
                 if not dry_run:
-                    # Positionsgröße berechnen (max 10% des Portfolios)
-                    quantity = int((portfolio_value * 0.10) / current_price)
-                    
                     if quantity > 0:
                         # Führe Trade aus
                         from alpaca.trading.requests import MarketOrderRequest
@@ -164,8 +164,7 @@ class TradingController:
                         
                         cycle_results['trades_executed'] += 1
                 else:
-                    logger.info(f"🧪 DRY-RUN: Würde {consensus} {symbol} @ ${current_price:.2f} ausführen")
-                    cycle_results['trades_executed'] += 1
+                    logger.info(f"🧪 DRY-RUN: Würde {consensus} {quantity} {symbol} @ ${current_price:.2f} ausführen")
                 
                 cycle_results['consensus_decisions'].append({
                     'symbol': symbol,
