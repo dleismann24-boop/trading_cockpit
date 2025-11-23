@@ -143,9 +143,11 @@ class TradingController:
                 
                 # Trade ausführen (nur wenn nicht dry-run)
                 # Positionsgröße berechnen basierend auf konfiguriertem Limit
-                # Default: 10% des Portfolios pro Trade
-                trade_percentage = 0.10  # Wird später durch Config überschrieben
-                quantity = int((portfolio_value * trade_percentage) / current_price)
+                trade_percentage = max_trade_percentage / 100.0  # Convert from percentage
+                max_trade_value = portfolio_value * trade_percentage
+                quantity = int(max_trade_value / current_price)
+                
+                logger.info(f"💰 Trade-Budget: ${max_trade_value:.2f} ({max_trade_percentage}% von ${portfolio_value:.2f})")
                 
                 if not dry_run:
                     if quantity > 0:
