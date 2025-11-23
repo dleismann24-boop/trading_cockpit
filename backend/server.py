@@ -692,6 +692,8 @@ async def configure_autopilot(request: AutopilotConfigRequest):
             {"$set": {
                 "enabled": request.enabled,
                 "interval_minutes": request.interval_minutes,
+                "max_trade_percentage": request.max_trade_percentage,
+                "max_budget_per_agent": request.max_budget_per_agent,
                 "updated_at": datetime.utcnow()
             }},
             upsert=True
