@@ -31,7 +31,7 @@ export default function Agenten() {
   }, []);
 
   const loadData = async () => {
-    try:
+    try {
       const [statusRes, leaderboardRes, autopilotRes] = await Promise.all([
         axios.get(`${API_URL}/api/autonomous/status`),
         axios.get(`${API_URL}/api/autonomous/leaderboard`),
