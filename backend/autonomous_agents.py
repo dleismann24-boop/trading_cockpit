@@ -240,6 +240,7 @@ Technische Analyse:
 - RSI: {signal.indicators.get('rsi', 'N/A')}
 - Momentum: {signal.indicators.get('momentum', 'N/A')}
 {sentiment_section}
+{memory_section}
 Entscheide basierend auf deiner Persönlichkeit ({self.personality}):
 Berücksichtige SOWOHL technische Indikatoren ALS AUCH Sentiment-Daten.
 
