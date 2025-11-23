@@ -1514,4 +1514,68 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
   },
+  // New styles for enhanced leaderboard
+  agentCard: {
+    backgroundColor: '#1a1a1a',
+    padding: 16,
+    borderRadius: 16,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#2a2a2a',
+  },
+  agentHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  agentNameContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  agentPL: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  profitText: {
+    color: '#10b981',
+  },
+  lossText: {
+    color: '#ef4444',
+  },
+  memorySection: {
+    backgroundColor: '#0a0a0a',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 12,
+    gap: 8,
+  },
+  memoryRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  memoryLabel: {
+    fontSize: 12,
+    color: '#888',
+    flex: 1,
+  },
+  memoryValue: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#fff',
+  },
+  goodStat: {
+    color: '#10b981',
+  },
+  badStat: {
+    color: '#ef4444',
+  },
+  statItem: {
+    flex: 1,
+    backgroundColor: '#0a0a0a',
+    padding: 12,
+    borderRadius: 8,
+  },
 });
