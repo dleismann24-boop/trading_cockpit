@@ -113,8 +113,8 @@ export default function Trade() {
       >
         <View style={styles.header}>
           <View>
-            <Text style={styles.headerTitle}>Make a Play</Text>
-            <Text style={styles.headerSubtitle}>Execute your trades</Text>
+            <Text style={styles.headerTitle}>Trade ausführen</Text>
+            <Text style={styles.headerSubtitle}>Führe deine Trades aus</Text>
           </View>
           <MaterialCommunityIcons name="rocket-launch" size={32} color="#10b981" />
         </View>
@@ -123,13 +123,13 @@ export default function Trade() {
           {/* Balance Card */}
           <View style={styles.balanceCard}>
             <View style={styles.balanceRow}>
-              <Text style={styles.balanceLabel}>Cash Available</Text>
+              <Text style={styles.balanceLabel}>Verfügbares Bargeld</Text>
               <Text style={styles.balanceValue}>
                 ${account?.cash.toLocaleString('en-US', { minimumFractionDigits: 2 }) || '0.00'}
               </Text>
             </View>
             <View style={styles.balanceRow}>
-              <Text style={styles.balanceLabel}>Buying Power</Text>
+              <Text style={styles.balanceLabel}>Kaufkraft</Text>
               <Text style={styles.balanceValue}>
                 ${account?.buying_power.toLocaleString('en-US', { minimumFractionDigits: 2 }) || '0.00'}
               </Text>
@@ -138,7 +138,7 @@ export default function Trade() {
 
           {/* Stock Search */}
           <View style={styles.inputSection}>
-            <Text style={styles.inputLabel}>Stock Symbol</Text>
+            <Text style={styles.inputLabel}>Aktiensymbol</Text>
             <View style={styles.searchContainer}>
               <MaterialCommunityIcons
                 name="magnify"
@@ -148,7 +148,7 @@ export default function Trade() {
               />
               <TextInput
                 style={styles.searchInput}
-                placeholder="Search stocks (e.g., AAPL)"
+                placeholder="Aktien suchen (e.g., AAPL)"
                 placeholderTextColor="#666"
                 value={symbol}
                 onChangeText={setSymbol}
@@ -187,9 +187,9 @@ export default function Trade() {
             </View>
           )}
 
-          {/* Order Type Toggle */}
+          {/* Order-Typ Toggle */}
           <View style={styles.inputSection}>
-            <Text style={styles.inputLabel}>Order Type</Text>
+            <Text style={styles.inputLabel}>Order-Typ</Text>
             <View style={styles.toggleContainer}>
               <TouchableOpacity
                 style={[
@@ -228,7 +228,7 @@ export default function Trade() {
 
           {/* Quantity Input */}
           <View style={styles.inputSection}>
-            <Text style={styles.inputLabel}>Quantity (Shares)</Text>
+            <Text style={styles.inputLabel}>Anzahl (Aktien)</Text>
             <TextInput
               style={styles.input}
               placeholder="0"
@@ -239,10 +239,10 @@ export default function Trade() {
             />
           </View>
 
-          {/* Limit Price (only for limit orders) */}
+          {/* Limit-Preis (only for limit orders) */}
           {orderType === 'limit' && (
             <View style={styles.inputSection}>
-              <Text style={styles.inputLabel}>Limit Price</Text>
+              <Text style={styles.inputLabel}>Limit-Preis</Text>
               <TextInput
                 style={styles.input}
                 placeholder="0.00"
@@ -254,10 +254,10 @@ export default function Trade() {
             </View>
           )}
 
-          {/* Estimated Cost */}
+          {/* Geschätzte Kosten */}
           {quantity && currentQuote && (
             <View style={styles.estimateCard}>
-              <Text style={styles.estimateLabel}>Estimated Cost</Text>
+              <Text style={styles.estimateLabel}>Geschätzte Kosten</Text>
               <Text style={styles.estimateValue}>${estimatedCost}</Text>
             </View>
           )}
@@ -273,7 +273,7 @@ export default function Trade() {
               disabled={!symbol || !quantity}
             >
               <MaterialCommunityIcons name="trending-up" size={24} color="#fff" />
-              <Text style={styles.actionButtonText}>BUY</Text>
+              <Text style={styles.actionButtonText}>KAUFEN</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -285,14 +285,14 @@ export default function Trade() {
               disabled={!symbol || !quantity}
             >
               <MaterialCommunityIcons name="trending-down" size={24} color="#fff" />
-              <Text style={styles.actionButtonText}>SELL</Text>
+              <Text style={styles.actionButtonText}>VERKAUFEN</Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.disclaimer}>
             <MaterialCommunityIcons name="information" size={16} color="#666" />
             <Text style={styles.disclaimerText}>
-              Paper trading environment - No real money involved
+              Paper-Trading-Umgebung - kein echtes Geld
             </Text>
           </View>
         </ScrollView>
