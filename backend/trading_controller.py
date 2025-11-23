@@ -48,7 +48,7 @@ class TradingController:
         self.last_run = None
         self.next_run = None
     
-    async def run_trading_cycle(self, dry_run: bool = False) -> Dict:
+    async def run_trading_cycle(self, dry_run: bool = False, max_trade_percentage: float = 10.0) -> Dict:
         """
         Führt einen Trading-Zyklus aus mit GEMEINSAMER Portfolio-Verwaltung
         Alle Agenten analysieren, diskutieren und stimmen ab
