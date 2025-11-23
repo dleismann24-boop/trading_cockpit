@@ -389,6 +389,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 60,
+    paddingHorizontal: 40,
   },
   emptyText: {
     fontSize: 18,
@@ -400,5 +401,28 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#444',
     marginTop: 8,
+  },
+  emptyTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginTop: 20,
+  },
+  emptyDescription: {
+    fontSize: 15,
+    color: '#888',
+    marginTop: 8,
+    textAlign: 'center',
+  },
+  emptyHint: {
+    fontSize: 13,
+    color: '#f97316',
+    marginTop: 16,
+    textAlign: 'center',
+    backgroundColor: 'rgba(249, 115, 22, 0.1)',
+    padding: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(249, 115, 22, 0.3)',
   },
 });
