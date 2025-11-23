@@ -159,7 +159,7 @@ def main():
     
     # Detailed analysis
     print("\n" + "=" * 60)
-    print("🔍 DETAILED ANALYSIS")
+    print("🔍 DETAILED ANALYSIS - NEUE FEATURES")
     print("=" * 60)
     
     for result in test_results:
@@ -173,21 +173,82 @@ def main():
                 print(f"   Response: {json.dumps(result['response_data'], indent=4)}")
         else:
             print(f"\n✅ PASSED: {result['method']} {result['endpoint']}")
-            # Check for specific expected data
+            
+            # Market Status Analysis
+            if result["endpoint"] == "/market/status" and result["response_data"]:
+                market_data = result["response_data"]
+                is_open = market_data.get("is_open", False)
+                print(f"   Market Status: {'OPEN' if is_open else 'CLOSED'}")
+                if "timestamp" in market_data:
+                    print(f"   Timestamp: {market_data['timestamp']}")
+            
+            # Leaderboard Analysis
             if result["endpoint"] == "/autonomous/leaderboard" and result["response_data"]:
                 if "leaderboard" in result["response_data"]:
                     agents = result["response_data"]["leaderboard"]
                     print(f"   Found {len(agents)} agents in leaderboard")
                     for agent in agents:
                         if isinstance(agent, dict) and "agent" in agent:
-                            print(f"   - {agent['agent']}")
+                            print(f"   - {agent['agent']}: Rank {agent.get('rank', 'N/A')}")
             
+            # Agent Status Analysis
             if result["endpoint"] == "/autonomous/status" and result["response_data"]:
                 if "status" in result["response_data"]:
                     status = result["response_data"]["status"]
                     if "agents_status" in status:
                         agents = list(status["agents_status"].keys())
                         print(f"   Active agents: {', '.join(agents)}")
+                        print(f"   Mode: {status.get('mode', 'N/A')}")
+            
+            # DRY-RUN Trading Cycle Analysis (NEUE FEATURE)
+            if result["endpoint"] == "/autonomous/start-cycle" and result["response_data"]:
+                if "results" in result["response_data"]:
+                    cycle_results = result["response_data"]["results"]
+                    dry_run = cycle_results.get("dry_run", False)
+                    
+                    print(f"   🧪 DRY-RUN Mode: {'YES' if dry_run else 'NO'}")
+                    print(f"   📊 Trades Proposed: {cycle_results.get('trades_proposed', 0)}")
+                    print(f"   ✅ Trades Executed: {cycle_results.get('trades_executed', 0)}")
+                    
+                    # Konsens-Entscheidungen analysieren
+                    if "consensus_decisions" in cycle_results:
+                        decisions = cycle_results["consensus_decisions"]
+                        print(f"   🗳️  Consensus Decisions: {len(decisions)}")
+                        
+                        for decision in decisions[:3]:  # Zeige erste 3
+                            symbol = decision.get("symbol", "N/A")
+                            consensus = decision.get("consensus", "N/A")
+                            confidence = decision.get("confidence", 0)
+                            executed = decision.get("executed", False)
+                            
+                            print(f"      - {symbol}: {consensus} (Confidence: {confidence:.2f}, Executed: {executed})")
+                            
+                            # Agenten-Vorschläge zeigen
+                            if "proposals" in decision:
+                                proposals = decision["proposals"]
+                                print(f"        Agent Votes:")
+                                for prop in proposals:
+                                    agent = prop.get("agent", "N/A")
+                                    action = prop.get("action", "N/A")
+                                    conf = prop.get("confidence", 0)
+                                    print(f"          {agent}: {action} ({conf:.2f})")
+                    
+                    print(f"   ⏱️  Timestamp: {cycle_results.get('timestamp', 'N/A')}")
+                    
+                    # Spezielle Validierung für DRY-RUN
+                    if dry_run and cycle_results.get('trades_executed', 0) > 0:
+                        print(f"   ⚠️  WARNING: DRY-RUN sollte keine echten Trades ausführen!")
+                    elif not dry_run and cycle_results.get('trades_executed', 0) == 0:
+                        print(f"   ℹ️  INFO: Normal mode but no trades executed (market closed or no consensus)")
+            
+            # Autopilot Status Analysis
+            if result["endpoint"] == "/autonomous/autopilot/status" and result["response_data"]:
+                config = result["response_data"].get("config", {})
+                enabled = config.get("enabled", False)
+                interval = config.get("interval_minutes", 0)
+                print(f"   Autopilot: {'ENABLED' if enabled else 'DISABLED'}")
+                if enabled:
+                    print(f"   Interval: {interval} minutes")
     
     print(f"\n🏁 Test completed at: {datetime.now()}")
     
