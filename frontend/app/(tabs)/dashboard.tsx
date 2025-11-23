@@ -145,7 +145,7 @@ export default function Dashboard() {
                   <Text style={styles.symbolText}>{position.symbol}</Text>
                 </View>
                 <View>
-                  <Text style={styles.positionQty}>{position.quantity} shares</Text>
+                  <Text style={styles.positionQty}>{position.quantity} Aktien</Text>
                   <Text style={styles.positionPrice}>
                     ${position.current_price.toFixed(2)}
                   </Text>
