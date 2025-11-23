@@ -413,7 +413,6 @@ export default function Agenten() {
                     onPress={() => {
                       setMaxTradePercentage(percentage);
                       if (autopilotEnabled) {
-                        // Update sofort wenn Autopilot läuft
                         updateInterval(autopilotInterval);
                       }
                     }}
@@ -435,6 +434,141 @@ export default function Agenten() {
                   Bei $100k Portfolio = max. ${(100000 * maxTradePercentage / 100).toFixed(0)} pro Trade
                 </Text>
               </View>
+            </View>
+
+            {/* Agent Budget Distribution */}
+            <View style={styles.budgetDistribution}>
+              <View style={styles.budgetHeader}>
+                <Text style={styles.budgetHeaderTitle}>📊 Budget-Verteilung</Text>
+                <View style={[
+                  styles.totalBadge,
+                  (jordanSoloBudget + bohlenSoloBudget + frodoSoloBudget + sharedConsensusBudget) > 100000 
+                    ? styles.totalBadgeError 
+                    : styles.totalBadgeSuccess
+                ]}>
+                  <Text style={styles.totalBadgeText}>
+                    ${((jordanSoloBudget + bohlenSoloBudget + frodoSoloBudget + sharedConsensusBudget) / 1000).toFixed(0)}k / $100k
+                  </Text>
+                </View>
+              </View>
+
+              {/* Jordan Solo Budget */}
+              <View style={styles.sliderContainer}>
+                <View style={styles.sliderHeader}>
+                  <Text style={styles.sliderLabel}>🏀 Jordan Solo</Text>
+                  <Text style={styles.sliderValue}>${(jordanSoloBudget / 1000).toFixed(0)}k</Text>
+                </View>
+                <View style={styles.sliderButtons}>
+                  {[0, 20000, 30000, 40000].map((amount) => (
+                    <TouchableOpacity
+                      key={amount}
+                      style={[
+                        styles.quickButton,
+                        jordanSoloBudget === amount && styles.quickButtonActive
+                      ]}
+                      onPress={() => setJordanSoloBudget(amount)}
+                    >
+                      <Text style={[
+                        styles.quickButtonText,
+                        jordanSoloBudget === amount && styles.quickButtonTextActive
+                      ]}>
+                        ${amount / 1000}k
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+
+              {/* Bohlen Solo Budget */}
+              <View style={styles.sliderContainer}>
+                <View style={styles.sliderHeader}>
+                  <Text style={styles.sliderLabel}>🎤 Bohlen Solo</Text>
+                  <Text style={styles.sliderValue}>${(bohlenSoloBudget / 1000).toFixed(0)}k</Text>
+                </View>
+                <View style={styles.sliderButtons}>
+                  {[0, 20000, 30000, 40000].map((amount) => (
+                    <TouchableOpacity
+                      key={amount}
+                      style={[
+                        styles.quickButton,
+                        bohlenSoloBudget === amount && styles.quickButtonActive
+                      ]}
+                      onPress={() => setBohlenSoloBudget(amount)}
+                    >
+                      <Text style={[
+                        styles.quickButtonText,
+                        bohlenSoloBudget === amount && styles.quickButtonTextActive
+                      ]}>
+                        ${amount / 1000}k
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+
+              {/* Frodo Solo Budget */}
+              <View style={styles.sliderContainer}>
+                <View style={styles.sliderHeader}>
+                  <Text style={styles.sliderLabel}>🧙 Frodo Solo</Text>
+                  <Text style={styles.sliderValue}>${(frodoSoloBudget / 1000).toFixed(0)}k</Text>
+                </View>
+                <View style={styles.sliderButtons}>
+                  {[0, 20000, 30000, 40000].map((amount) => (
+                    <TouchableOpacity
+                      key={amount}
+                      style={[
+                        styles.quickButton,
+                        frodoSoloBudget === amount && styles.quickButtonActive
+                      ]}
+                      onPress={() => setFrodoSoloBudget(amount)}
+                    >
+                      <Text style={[
+                        styles.quickButtonText,
+                        frodoSoloBudget === amount && styles.quickButtonTextActive
+                      ]}>
+                        ${amount / 1000}k
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+
+              {/* Shared Consensus Budget */}
+              <View style={styles.sliderContainer}>
+                <View style={styles.sliderHeader}>
+                  <Text style={styles.sliderLabel}>🤝 Gemeinsam (Konsens)</Text>
+                  <Text style={styles.sliderValue}>${(sharedConsensusBudget / 1000).toFixed(0)}k</Text>
+                </View>
+                <View style={styles.sliderButtons}>
+                  {[0, 25000, 50000, 100000].map((amount) => (
+                    <TouchableOpacity
+                      key={amount}
+                      style={[
+                        styles.quickButton,
+                        sharedConsensusBudget === amount && styles.quickButtonActive
+                      ]}
+                      onPress={() => setSharedConsensusBudget(amount)}
+                    >
+                      <Text style={[
+                        styles.quickButtonText,
+                        sharedConsensusBudget === amount && styles.quickButtonTextActive
+                      ]}>
+                        ${amount / 1000}k
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+
+              {/* Warning if over budget */}
+              {(jordanSoloBudget + bohlenSoloBudget + frodoSoloBudget + sharedConsensusBudget) > 100000 && (
+                <View style={styles.warningBox}>
+                  <MaterialCommunityIcons name="alert-circle-outline" size={18} color="#ef4444" />
+                  <Text style={[styles.warningText, { color: '#ef4444' }]}>
+                    ⚠️ Budget überschritten! Total ist ${((jordanSoloBudget + bohlenSoloBudget + frodoSoloBudget + sharedConsensusBudget) / 1000).toFixed(0)}k, maximal $100k erlaubt.
+                  </Text>
+                </View>
+              )}
             </View>
 
             {/* Status Info */}
