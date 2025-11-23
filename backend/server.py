@@ -686,7 +686,18 @@ async def configure_autopilot(request: AutopilotConfigRequest):
 @api_router.get("/autonomous/autopilot/status")
 async def get_autonomous_autopilot_status():
     """Autopilot-Status abrufen"""
-    return {"success": True, "config": autopilot_config}
+    scheduler = get_autopilot_scheduler()
+    scheduler_status = scheduler.get_status()
+    
+    # Update next_run from actual scheduler
+    if scheduler_status['next_run']:
+        autopilot_config['next_run'] = scheduler_status['next_run']
+    
+    return {
+        "success": True, 
+        "config": autopilot_config,
+        "scheduler_status": scheduler_status
+    }
 
 # Include the router in the main app
 app.include_router(api_router)
