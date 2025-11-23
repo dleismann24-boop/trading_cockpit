@@ -96,6 +96,7 @@ export default function Agenten() {
         await axios.post(`${API_URL}/api/autonomous/autopilot/configure`, {
           enabled: true,
           interval_minutes: minutes,
+          max_trade_percentage: maxTradePercentage
         });
       } catch (error) {
         console.error('Interval update error:', error);
