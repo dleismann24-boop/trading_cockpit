@@ -112,7 +112,8 @@ class AutonomousAgent:
                 current_price, 
                 technical_signal,
                 current_cash,
-                portfolio_value
+                portfolio_value,
+                sentiment_data
             )
             
             if final_decision['action'] == 'HOLD':
