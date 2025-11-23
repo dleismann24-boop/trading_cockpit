@@ -41,8 +41,8 @@ export default function Portfolio() {
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
         <View>
-          <Text style={styles.headerTitle}>Your Lineup</Text>
-          <Text style={styles.headerSubtitle}>{positions.length} positions</Text>
+          <Text style={styles.headerTitle}>Deine Positionen</Text>
+          <Text style={styles.headerSubtitle}>{positions.length} Positionen</Text>
         </View>
         <MaterialCommunityIcons name="trophy" size={32} color="#f97316" />
       </View>
