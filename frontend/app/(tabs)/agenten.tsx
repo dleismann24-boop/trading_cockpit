@@ -793,4 +793,20 @@ const styles = StyleSheet.create({
     color: '#f97316',
     lineHeight: 18,
   },
+  infoBox: {
+    flexDirection: 'row',
+    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+    padding: 12,
+    borderRadius: 8,
+    gap: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(59, 130, 246, 0.3)',
+    marginBottom: 12,
+  },
+  infoText: {
+    flex: 1,
+    fontSize: 12,
+    color: '#3b82f6',
+    lineHeight: 18,
+  },
 });
