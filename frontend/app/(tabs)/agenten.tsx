@@ -79,7 +79,11 @@ export default function Agenten() {
       const response = await axios.post(`${API_URL}/api/autonomous/autopilot/configure`, {
         enabled,
         interval_minutes: autopilotInterval,
-        max_trade_percentage: maxTradePercentage
+        max_trade_percentage: maxTradePercentage,
+        jordan_solo_budget: jordanSoloBudget,
+        bohlen_solo_budget: bohlenSoloBudget,
+        frodo_solo_budget: frodoSoloBudget,
+        shared_consensus_budget: sharedConsensusBudget
       });
 
       if (response.data.success) {
