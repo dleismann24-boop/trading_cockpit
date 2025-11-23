@@ -498,6 +498,23 @@ async def autopilot_analyze():
         logger.error(f"Auto-pilot analysis error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+# ============ NEUE AI ENDPOINTS ============
+
+@api_router.get("/ai/test")
+async def test_ai():
+    """Test endpoint"""
+    return {"success": True, "message": "AI Endpoints funktionieren!"}
+
+@api_router.get("/ai/stats")
+async def get_ai_stats():
+    """KI-Statistiken"""
+    try:
+        system = get_enhanced_system()
+        stats = system.get_system_stats()
+        return {"success": True, "stats": stats}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
 # Include the router in the main app
 app.include_router(api_router)
 
