@@ -142,8 +142,10 @@ class TradingController:
                 logger.info(f"✅ Konsens erreicht: {consensus} (Avg. Confidence: {avg_confidence:.2f})")
                 
                 # Trade ausführen (nur wenn nicht dry-run)
-                # Positionsgröße berechnen (max 10% des Portfolios)
-                quantity = int((portfolio_value * 0.10) / current_price)
+                # Positionsgröße berechnen basierend auf konfiguriertem Limit
+                # Default: 10% des Portfolios pro Trade
+                trade_percentage = 0.10  # Wird später durch Config überschrieben
+                quantity = int((portfolio_value * trade_percentage) / current_price)
                 
                 if not dry_run:
                     if quantity > 0:
