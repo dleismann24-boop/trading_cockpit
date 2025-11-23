@@ -381,7 +381,7 @@ export default function Agenten() {
             <View style={styles.intervalSection}>
               <Text style={styles.intervalLabel}>Trading-Intervall</Text>
               <View style={styles.intervalButtons}>
-                {[30, 60, 120, 240].map((minutes) => (
+                {[5, 10, 15, 30, 60].map((minutes) => (
                   <TouchableOpacity
                     key={minutes}
                     style={[
