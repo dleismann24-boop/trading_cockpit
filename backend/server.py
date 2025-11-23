@@ -142,6 +142,38 @@ MOCK_ACCOUNT = {
 async def root():
     return {"message": "Welcome to the Court, Wookie Mann & Funky Danki 🏀"}
 
+@api_router.get("/market/status")
+async def get_market_status():
+    """Get current market status (open/closed) from Alpaca"""
+    try:
+        if trading_client:
+            clock = trading_client.get_clock()
+            return {
+                "success": True,
+                "is_open": clock.is_open,
+                "next_open": str(clock.next_open),
+                "next_close": str(clock.next_close),
+                "timestamp": str(clock.timestamp)
+            }
+        else:
+            # Mock für Dev
+            now = datetime.utcnow()
+            is_weekend = now.weekday() >= 5  # Samstag oder Sonntag
+            return {
+                "success": True,
+                "is_open": not is_weekend and 14 <= now.hour < 21,  # 9:30-16:00 EST = 14:30-21:00 UTC
+                "next_open": "Mock data",
+                "next_close": "Mock data",
+                "timestamp": str(now)
+            }
+    except Exception as e:
+        logging.error(f"Error fetching market status: {e}")
+        return {
+            "success": False,
+            "is_open": False,
+            "error": str(e)
+        }
+
 # Account endpoints
 @api_router.get("/account", response_model=AccountResponse)
 async def get_account():
