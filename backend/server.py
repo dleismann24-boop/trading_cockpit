@@ -653,7 +653,9 @@ class AutopilotConfigRequest(BaseModel):
     jordan_solo_budget: float = 0.0  # Budget für Jordan's Solo-Trades
     bohlen_solo_budget: float = 0.0  # Budget für Bohlen's Solo-Trades
     frodo_solo_budget: float = 0.0   # Budget für Frodo's Solo-Trades
-    shared_consensus_budget: float = 100000.0  # Gemeinsames Budget für Konsens-Trades = 60  # Standard: jede Stunde
+    shared_consensus_budget: float = 100000.0  # Gemeinsames Budget für Konsens-Trades
+    # Zeitbegrenzung
+    duration_minutes: int = 0  # 0 = unbegrenzt, >0 = stoppt nach X Minuten = 60  # Standard: jede Stunde
 
 autopilot_config = {
     'enabled': False,
