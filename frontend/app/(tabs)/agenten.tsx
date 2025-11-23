@@ -918,4 +918,61 @@ const styles = StyleSheet.create({
     color: '#3b82f6',
     lineHeight: 18,
   },
+  // Budget Styles
+  budgetSection: {
+    marginTop: 16,
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#2a2a2a',
+  },
+  budgetLabel: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#ccc',
+    marginBottom: 4,
+  },
+  budgetDescription: {
+    fontSize: 12,
+    color: '#888',
+    marginBottom: 12,
+  },
+  budgetButtons: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  budgetButton: {
+    flex: 1,
+    backgroundColor: '#0a0a0a',
+    padding: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#2a2a2a',
+  },
+  budgetButtonActive: {
+    backgroundColor: '#10b981',
+    borderColor: '#10b981',
+  },
+  budgetButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#888',
+  },
+  budgetButtonTextActive: {
+    color: '#fff',
+  },
+  budgetInfoBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+    padding: 10,
+    borderRadius: 8,
+    gap: 8,
+    marginTop: 12,
+  },
+  budgetInfoText: {
+    flex: 1,
+    fontSize: 12,
+    color: '#10b981',
+  },
 });
