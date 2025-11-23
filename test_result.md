@@ -284,13 +284,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "GET /api/market/status - Markt-Status prüfen"
-    - "POST /api/autonomous/start-cycle - DRY-RUN Trading-Zyklus (Simulation)"
-    - "POST /api/autonomous/start-cycle - Normaler Trading-Zyklus (Konsens-Voting)"
+    - "Sentiment Analyzer System - LlmChat Initialisierungsfehler beheben"
   stuck_tasks: 
     - "POST /api/autonomous/start-cycle - DRY-RUN Trading-Zyklus (Simulation)"
-  test_all: false
-  test_priority: "high_first"
+  test_all: true
+  test_priority: "comprehensive_completed"
 
 agent_communication:
     - agent: "testing"
