@@ -531,23 +531,60 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: 20,
   },
-  startButton: {
+  buttonRow: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 20,
+  },
+  primaryButton: {
     flexDirection: 'row',
     backgroundColor: '#10b981',
-    padding: 18,
+    padding: 16,
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 12,
-    marginTop: 20,
+    gap: 8,
   },
-  startButtonDisabled: {
-    backgroundColor: '#666',
+  secondaryButton: {
+    flexDirection: 'row',
+    backgroundColor: '#1a1a1a',
+    padding: 16,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 8,
+    borderWidth: 2,
+    borderColor: '#f97316',
   },
-  startButtonText: {
-    fontSize: 16,
+  buttonDisabled: {
+    opacity: 0.5,
+  },
+  buttonText: {
+    fontSize: 14,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  secondaryButtonText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#f97316',
+  },
+  marketClosedHint: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+    padding: 12,
+    borderRadius: 8,
+    gap: 8,
+    marginTop: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(59, 130, 246, 0.3)',
+  },
+  marketClosedHintText: {
+    flex: 1,
+    fontSize: 12,
+    color: '#3b82f6',
+    lineHeight: 18,
   },
   leaderboardCard: {
     backgroundColor: '#1a1a1a',
