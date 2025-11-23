@@ -71,7 +71,7 @@ export default function AIZentrale() {
     }, 1500);
   };
 
-  const executeT rade = () => {
+  const executeTrade = () => {
     setLoading(true);
     setTimeout(() => {
       setPhase('done');
