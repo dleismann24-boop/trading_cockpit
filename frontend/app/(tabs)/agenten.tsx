@@ -31,10 +31,11 @@ export default function Agenten() {
   }, []);
 
   const loadData = async () => {
-    try {
-      const [statusRes, leaderboardRes] = await Promise.all([
+    try:
+      const [statusRes, leaderboardRes, autopilotRes] = await Promise.all([
         axios.get(`${API_URL}/api/autonomous/status`),
         axios.get(`${API_URL}/api/autonomous/leaderboard`),
+        axios.get(`${API_URL}/api/autonomous/autopilot/status`),
       ]);
 
       if (statusRes.data.success) {
@@ -44,8 +45,48 @@ export default function Agenten() {
       if (leaderboardRes.data.success) {
         setLeaderboard(leaderboardRes.data.leaderboard);
       }
+
+      if (autopilotRes.data.success) {
+        setAutopilotConfig(autopilotRes.data.config);
+        setAutopilotEnabled(autopilotRes.data.config.enabled);
+        setAutopilotInterval(autopilotRes.data.config.interval_minutes);
+      }
     } catch (error) {
       console.error('Error loading agent data:', error);
+    }
+  };
+
+  const toggleAutopilot = async (enabled: boolean) => {
+    try {
+      const response = await axios.post(`${API_URL}/api/autonomous/autopilot/configure`, {
+        enabled,
+        interval_minutes: autopilotInterval,
+      });
+
+      if (response.data.success) {
+        setAutopilotEnabled(enabled);
+        setAutopilotConfig(response.data.config);
+        alert(enabled ? 'Autopilot aktiviert!' : 'Autopilot deaktiviert');
+        await loadData();
+      }
+    } catch (error) {
+      console.error('Autopilot toggle error:', error);
+      alert('Fehler beim Umschalten des Autopilots');
+    }
+  };
+
+  const updateInterval = async (minutes: number) => {
+    setAutopilotInterval(minutes);
+    
+    if (autopilotEnabled) {
+      try {
+        await axios.post(`${API_URL}/api/autonomous/autopilot/configure`, {
+          enabled: true,
+          interval_minutes: minutes,
+        });
+      } catch (error) {
+        console.error('Interval update error:', error);
+      }
     }
   };
 
