@@ -269,6 +269,105 @@ export default function Agenten() {
           </View>
         )}
 
+        {/* Autopilot Control */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>⚡ Autopilot</Text>
+          
+          <View style={styles.autopilotCard}>
+            <View style={styles.autopilotHeader}>
+              <View>
+                <Text style={styles.autopilotTitle}>Autonomer Trading-Modus</Text>
+                <Text style={styles.autopilotSubtitle}>
+                  {autopilotEnabled 
+                    ? '🟢 Aktiv - Agenten handeln selbstständig' 
+                    : '🔴 Inaktiv - Manuelle Steuerung'}
+                </Text>
+              </View>
+              
+              <TouchableOpacity
+                style={[
+                  styles.toggleButton,
+                  autopilotEnabled && styles.toggleButtonActive
+                ]}
+                onPress={() => toggleAutopilot(!autopilotEnabled)}
+              >
+                <Text style={styles.toggleButtonText}>
+                  {autopilotEnabled ? 'AUS' : 'EIN'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Interval Settings */}
+            <View style={styles.intervalSection}>
+              <Text style={styles.intervalLabel}>Trading-Intervall</Text>
+              <View style={styles.intervalButtons}>
+                {[30, 60, 120, 240].map((minutes) => (
+                  <TouchableOpacity
+                    key={minutes}
+                    style={[
+                      styles.intervalButton,
+                      autopilotInterval === minutes && styles.intervalButtonActive
+                    ]}
+                    onPress={() => updateInterval(minutes)}
+                  >
+                    <Text
+                      style={[
+                        styles.intervalButtonText,
+                        autopilotInterval === minutes && styles.intervalButtonTextActive
+                      ]}
+                    >
+                      {minutes < 60 ? `${minutes}min` : `${minutes / 60}h`}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </View>
+
+            {/* Status Info */}
+            {autopilotConfig && (
+              <View style={styles.autopilotInfo}>
+                {autopilotConfig.next_run && (
+                  <View style={styles.autopilotInfoRow}>
+                    <MaterialCommunityIcons name="clock-outline" size={16} color="#888" />
+                    <Text style={styles.autopilotInfoText}>
+                      Nächster Lauf: {new Date(autopilotConfig.next_run).toLocaleString('de-DE', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        day: '2-digit',
+                        month: '2-digit'
+                      })}
+                    </Text>
+                  </View>
+                )}
+                
+                {autopilotConfig.last_run && (
+                  <View style={styles.autopilotInfoRow}>
+                    <MaterialCommunityIcons name="check-circle-outline" size={16} color="#10b981" />
+                    <Text style={styles.autopilotInfoText}>
+                      Letzter Lauf: {new Date(autopilotConfig.last_run).toLocaleString('de-DE', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        day: '2-digit',
+                        month: '2-digit'
+                      })}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            )}
+
+            {/* Warning */}
+            {autopilotEnabled && (
+              <View style={styles.warningBox}>
+                <MaterialCommunityIcons name="alert-circle-outline" size={18} color="#f97316" />
+                <Text style={styles.warningText}>
+                  Im Autopilot-Modus handeln die Agenten eigenständig basierend auf ihren Strategien und dem konfigurierten Intervall.
+                </Text>
+              </View>
+            )}
+          </View>
+        </View>
+
         {/* System Info */}
         {status && (
           <View style={styles.section}>
