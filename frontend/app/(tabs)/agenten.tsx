@@ -180,25 +180,45 @@ export default function Agenten() {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#f97316" />
         }
       >
-        {/* Start Trading Cycle Button */}
+        {/* Trading Buttons */}
         <View style={styles.section}>
-          <TouchableOpacity
-            style={[styles.startButton, cycleRunning && styles.startButtonDisabled]}
-            onPress={startTradingCycle}
-            disabled={cycleRunning}
-          >
-            {cycleRunning ? (
-              <>
-                <ActivityIndicator color="#fff" />
-                <Text style={styles.startButtonText}>Trading läuft...</Text>
-              </>
-            ) : (
-              <>
-                <MaterialCommunityIcons name="play-circle" size={24} color="#fff" />
-                <Text style={styles.startButtonText}>Trading-Zyklus starten</Text>
-              </>
-            )}
-          </TouchableOpacity>
+          <View style={styles.buttonRow}>
+            <TouchableOpacity
+              style={[styles.primaryButton, cycleRunning && styles.buttonDisabled, {flex: 1, marginRight: 8}]}
+              onPress={() => startTradingCycle(false)}
+              disabled={cycleRunning}
+            >
+              {cycleRunning ? (
+                <>
+                  <ActivityIndicator color="#fff" size="small" />
+                  <Text style={styles.buttonText}>Läuft...</Text>
+                </>
+              ) : (
+                <>
+                  <MaterialCommunityIcons name="play-circle" size={20} color="#fff" />
+                  <Text style={styles.buttonText}>Trading starten</Text>
+                </>
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.secondaryButton, cycleRunning && styles.buttonDisabled, {flex: 1, marginLeft: 8}]}
+              onPress={() => startTradingCycle(true)}
+              disabled={cycleRunning}
+            >
+              <MaterialCommunityIcons name="test-tube" size={20} color="#f97316" />
+              <Text style={styles.secondaryButtonText}>Simulation</Text>
+            </TouchableOpacity>
+          </View>
+          
+          {!marketOpen && (
+            <View style={styles.marketClosedHint}>
+              <MaterialCommunityIcons name="information" size={16} color="#3b82f6" />
+              <Text style={styles.marketClosedHintText}>
+                Markt geschlossen - Nutze "Simulation" um zu sehen, was die Agenten machen würden
+              </Text>
+            </View>
+          )}
         </View>
 
         {/* Leaderboard */}
