@@ -660,6 +660,84 @@ export default function Agenten() {
           </View>
         )}
       </ScrollView>
+
+      {/* Simulation Modal */}
+      <Modal
+        visible={showSimulationModal}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setShowSimulationModal(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>🧪 Simulations-Ergebnisse</Text>
+              <TouchableOpacity onPress={() => setShowSimulationModal(false)}>
+                <MaterialCommunityIcons name="close" size={28} color="#fff" />
+              </TouchableOpacity>
+            </View>
+
+            <ScrollView style={styles.modalScroll}>
+              {simulationResults?.consensus_decisions?.map((decision: any, idx: number) => (
+                <View key={idx} style={styles.decisionCard}>
+                  <View style={styles.decisionHeader}>
+                    <Text style={styles.symbolText}>{decision.symbol}</Text>
+                    <View style={[
+                      styles.consensusBadge,
+                      decision.consensus === 'BUY' ? styles.buyBadge : styles.sellBadge
+                    ]}>
+                      <Text style={styles.consensusText}>{decision.consensus}</Text>
+                    </View>
+                  </View>
+
+                  <Text style={styles.confidenceText}>
+                    Confidence: {(decision.confidence * 100).toFixed(0)}%
+                  </Text>
+
+                  {/* Agenten-Vorschläge */}
+                  <View style={styles.proposalsSection}>
+                    <Text style={styles.proposalTitle}>Agenten-Diskussion:</Text>
+                    {decision.proposals?.map((proposal: any, pIdx: number) => (
+                      <View key={pIdx} style={styles.proposalCard}>
+                        <View style={styles.proposalHeader}>
+                          <Text style={styles.agentName}>{proposal.agent}</Text>
+                          <Text style={[
+                            styles.actionBadge,
+                            proposal.action === 'BUY' ? styles.buyText : 
+                            proposal.action === 'SELL' ? styles.sellText : styles.holdText
+                          ]}>
+                            {proposal.action}
+                          </Text>
+                        </View>
+                        <Text style={styles.reasonText}>{proposal.reason}</Text>
+                        <Text style={styles.priceText}>
+                          @ ${proposal.price?.toFixed(2)} | Confidence: {(proposal.confidence * 100).toFixed(0)}%
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
+                </View>
+              ))}
+
+              {simulationResults?.consensus_decisions?.length === 0 && (
+                <View style={styles.emptyResults}>
+                  <MaterialCommunityIcons name="sleep" size={48} color="#666" />
+                  <Text style={styles.emptyResultsText}>
+                    Kein Konsens erreicht - Agenten waren sich bei keinem Symbol einig
+                  </Text>
+                </View>
+              )}
+            </ScrollView>
+
+            <TouchableOpacity 
+              style={styles.closeButton}
+              onPress={() => setShowSimulationModal(false)}
+            >
+              <Text style={styles.closeButtonText}>Schließen</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
