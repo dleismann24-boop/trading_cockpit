@@ -118,13 +118,13 @@ export default function Dashboard() {
         {/* Quick Stats */}
         <View style={styles.statsGrid}>
           <View style={styles.statCard}>
-            <Text style={styles.statLabel}>Cash</Text>
+            <Text style={styles.statLabel}>Bargeld</Text>
             <Text style={styles.statValue}>
               ${account?.cash.toLocaleString('en-US', { maximumFractionDigits: 0 }) || '25,421'}
             </Text>
           </View>
           <View style={styles.statCard}>
-            <Text style={styles.statLabel}>Buying Power</Text>
+            <Text style={styles.statLabel}>Kaufkraft</Text>
             <Text style={styles.statValue}>
               ${account?.buying_power.toLocaleString('en-US', { maximumFractionDigits: 0 }) || '50,842'}
             </Text>
@@ -134,7 +134,7 @@ export default function Dashboard() {
         {/* Your Lineup (Top Holdings) */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Your Lineup</Text>
+            <Text style={styles.sectionTitle}>Deine Positionen</Text>
             <MaterialCommunityIcons name="account-group" size={24} color="#f97316" />
           </View>
 
