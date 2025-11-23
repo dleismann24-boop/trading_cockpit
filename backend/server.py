@@ -658,6 +658,8 @@ async def configure_autopilot(request: AutopilotConfigRequest):
     try:
         autopilot_config['enabled'] = request.enabled
         autopilot_config['interval_minutes'] = request.interval_minutes
+        autopilot_config['max_trade_percentage'] = request.max_trade_percentage
+        autopilot_config['max_budget_per_agent'] = request.max_budget_per_agent
         
         # Get scheduler
         scheduler = get_autopilot_scheduler()
