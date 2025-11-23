@@ -194,7 +194,7 @@ export default function Portfolio() {
         {positions.length === 0 && !loading && (
           <View style={styles.emptyState}>
             <MaterialCommunityIcons name="basketball" size={64} color="#444" />
-            <Text style={styles.emptyText}>No positions yet</Text>
+            <Text style={styles.emptyText}>Noch keine Positionen</Text>
             <Text style={styles.emptySubtext}>Zeit, dein Portfolio aufzubauen!</Text>
           </View>
         )}
