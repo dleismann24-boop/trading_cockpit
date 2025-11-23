@@ -706,7 +706,10 @@ async def configure_autopilot(request: AutopilotConfigRequest):
                 "enabled": request.enabled,
                 "interval_minutes": request.interval_minutes,
                 "max_trade_percentage": request.max_trade_percentage,
-                "max_budget_per_agent": request.max_budget_per_agent,
+                "jordan_solo_budget": request.jordan_solo_budget,
+                "bohlen_solo_budget": request.bohlen_solo_budget,
+                "frodo_solo_budget": request.frodo_solo_budget,
+                "shared_consensus_budget": request.shared_consensus_budget,
                 "updated_at": datetime.utcnow()
             }},
             upsert=True
