@@ -381,12 +381,21 @@ export default function Agenten() {
               </View>
             )}
 
-            {/* Warning */}
+            {/* Info & Warning */}
+            {!marketOpen && (
+              <View style={styles.infoBox}>
+                <MaterialCommunityIcons name="information-outline" size={18} color="#3b82f6" />
+                <Text style={styles.infoText}>
+                  ℹ️ Markt ist geschlossen. Im Autopilot-Modus werden die Agenten zur konfigurierten Zeit den Markt analysieren. Trades werden erst ausgeführt, sobald der Markt wieder öffnet.
+                </Text>
+              </View>
+            )}
+            
             {autopilotEnabled && (
               <View style={styles.warningBox}>
                 <MaterialCommunityIcons name="alert-circle-outline" size={18} color="#f97316" />
                 <Text style={styles.warningText}>
-                  Im Autopilot-Modus handeln die Agenten eigenständig basierend auf ihren Strategien und dem konfigurierten Intervall.
+                  Im Autopilot-Modus analysieren die Agenten eigenständig alle {autopilotInterval} Minuten den Markt und führen Trades basierend auf ihren Strategien aus (nur während Marktzeiten: Mo-Fr, 9:30-16:00 EST).
                 </Text>
               </View>
             )}
