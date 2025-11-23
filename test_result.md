@@ -165,6 +165,42 @@ backend:
           agent: "testing"
           comment: "✅ Endpoint funktioniert korrekt. Startet Trading-Zyklus erfolgreich mit allen 3 Agenten. Jordan und Bohlen führen Trades aus, Frodo bleibt konservativ. Dauert ~30-40 Sekunden wegen AI-Entscheidungen."
 
+  - task: "GET /api/market/status - Markt-Status prüfen"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Endpoint funktioniert korrekt. Zeigt aktuellen Markt-Status (OPEN/CLOSED), nächste Öffnungs-/Schließzeiten und Timestamp. Verwendet Alpaca API oder Mock-Daten."
+
+  - task: "POST /api/autonomous/start-cycle - DRY-RUN Trading-Zyklus (Simulation)"
+    implemented: true
+    working: false
+    file: "trading_controller.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ BUG GEFUNDEN: DRY-RUN Modus führt Konsens-Entscheidungen durch und zeigt korrekte Agent-Diskussionen, aber trades_executed wird fälschlicherweise inkrementiert (Zeile 168 in trading_controller.py). Sollte bei dry_run=true immer 0 sein. Konsens-Voting funktioniert korrekt mit detaillierten Agent-Begründungen."
+
+  - task: "POST /api/autonomous/start-cycle - Normaler Trading-Zyklus (Konsens-Voting)"
+    implemented: true
+    working: true
+    file: "trading_controller.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Endpoint funktioniert korrekt. Alle 3 Agenten (Jordan, Bohlen, Frodo) diskutieren jedes Symbol, geben detaillierte Begründungen ab und stimmen ab. Konsens-Entscheidungen werden bei 2/3 Mehrheit getroffen. LLM-Integration funktioniert mit GPT-4, Claude-3.5-Sonnet und Gemini-2.5-Flash. Trades werden nur bei Konsens ausgeführt."
+
 frontend:
   # No frontend testing requested
 
