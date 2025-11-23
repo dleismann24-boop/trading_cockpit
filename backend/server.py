@@ -569,8 +569,14 @@ async def start_trading_cycle(request: TradingCycleRequest = TradingCycleRequest
         if not controller:
             raise HTTPException(status_code=500, detail="Controller nicht initialisiert")
         
+        # Get current budget settings from autopilot config
+        max_trade_percentage = autopilot_config.get('max_trade_percentage', 10.0)
+        
         # Run mit oder ohne dry-run
-        results = await controller.run_trading_cycle(dry_run=request.dry_run)
+        results = await controller.run_trading_cycle(
+            dry_run=request.dry_run,
+            max_trade_percentage=max_trade_percentage
+        )
         
         # Speicher in DB
         await db.trading_cycles.insert_one({
