@@ -107,12 +107,19 @@ export default function Agenten() {
   };
 
   const startTradingCycle = async () => {
+    if (!marketOpen) {
+      alert('⚠️ Markt ist geschlossen!\n\nDie Agenten können trotzdem Analysen durchführen und Trades planen, aber echte Orders werden erst ausgeführt, wenn der Markt öffnet.\n\nMöchtest du trotzdem fortfahren?');
+    }
+    
     setCycleRunning(true);
     try {
       const response = await axios.post(`${API_URL}/api/autonomous/start-cycle`);
       
       if (response.data.success) {
-        alert(`Trading-Zyklus abgeschlossen!\n${response.data.results.trades_executed} Trades ausgeführt`);
+        const tradesMsg = marketOpen 
+          ? `${response.data.results.trades_executed} Trades ausgeführt` 
+          : `${response.data.results.trades_executed} Trades geplant (Markt geschlossen)`;
+        alert(`Trading-Zyklus abgeschlossen!\n${tradesMsg}`);
         await loadData();
       }
     } catch (error) {
