@@ -1,12 +1,14 @@
 """
 Sentiment Analyzer
 Analysiert Social Media, News und generelles Market Sentiment für Trading-Entscheidungen
+Nutzt FinBERT für präzise Finanz-Sentiment-Analyse
 """
 import logging
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 import aiohttp
 import asyncio
+from finbert_sentiment import get_finbert
 
 logger = logging.getLogger(__name__)
 
