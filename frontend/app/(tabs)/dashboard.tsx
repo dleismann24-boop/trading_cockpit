@@ -93,7 +93,7 @@ export default function Dashboard() {
 
         {/* Chart */}
         <View style={styles.chartCard}>
-          <Text style={styles.sectionTitle}>Game Stats (7D)</Text>
+          <Text style={styles.sectionTitle}>Performance (7 Tage)</Text>
           <LineChart
             data={chartData}
             width={width - 60}
