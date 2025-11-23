@@ -601,6 +601,23 @@ async def get_autonomous_status():
     except Exception as e:
         return {"success": False, "error": str(e)}
 
+@api_router.get("/autonomous/cycles/history")
+async def get_cycles_history():
+    """Get trading cycles history from database"""
+    try:
+        # Get last 20 cycles from MongoDB
+        cycles = await db.trading_cycles.find().sort("saved_at", -1).limit(20).to_list(20)
+        
+        # Convert ObjectId to string
+        for cycle in cycles:
+            if '_id' in cycle:
+                cycle['_id'] = str(cycle['_id'])
+        
+        return {"success": True, "cycles": cycles}
+    except Exception as e:
+        logger.error(f"Error fetching cycles history: {e}")
+        return {"success": False, "cycles": [], "error": str(e)}
+
 @api_router.get("/autonomous/leaderboard")
 async def get_leaderboard():
     """Performance-Ranking der Agenten"""
