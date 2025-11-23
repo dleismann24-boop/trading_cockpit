@@ -556,6 +556,7 @@ async def get_ai_stats():
 # ============ AUTONOME TRADING ENDPOINTS ============
 
 from trading_controller import get_trading_controller, TradingMode
+from autopilot_scheduler import get_autopilot_scheduler
 
 @api_router.post("/autonomous/start-cycle")
 async def start_trading_cycle():
