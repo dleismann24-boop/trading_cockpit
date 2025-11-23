@@ -12,7 +12,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTradingStore } from '../../store/tradingStore';
 
 export default function Portfolio() {
-  const { Positionen, fetchPositions, loading } = useTradingStore();
+  const { positions, fetchPositions, loading } = useTradingStore();
   const [refreshing, setRefreshing] = useState(false);
   const [sortBy, setSortBy] = useState<'value' | 'return'>('value');
 
