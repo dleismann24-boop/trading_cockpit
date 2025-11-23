@@ -43,6 +43,7 @@ class AutonomousAgent:
         self.budget = budget
         self.trading_client = trading_client
         self.data_client = data_client
+        self.db_client = db_client
         
         # Strategy & Risk
         self.strategy_analyzer = StrategyAnalyzer()
