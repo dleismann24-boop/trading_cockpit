@@ -728,9 +728,15 @@ export default function Agenten() {
 
               {simulationResults?.consensus_decisions?.length === 0 && (
                 <View style={styles.emptyResults}>
-                  <MaterialCommunityIcons name="sleep" size={48} color="#666" />
+                  <MaterialCommunityIcons name="forum" size={48} color="#f97316" />
+                  <Text style={styles.emptyResultsTitle}>
+                    Die Agenten haben diskutiert! 💬
+                  </Text>
                   <Text style={styles.emptyResultsText}>
-                    Kein Konsens erreicht - Agenten waren sich bei keinem Symbol einig
+                    Aber sie waren sich bei keinem Symbol einig. 
+                  </Text>
+                  <Text style={styles.emptyResultsHint}>
+                    💡 Das ist normal bei volatilen Märkten! Gehe zum "AI-Zentrale" Tab, um die vollständigen Diskussionen zu sehen.
                   </Text>
                 </View>
               )}
