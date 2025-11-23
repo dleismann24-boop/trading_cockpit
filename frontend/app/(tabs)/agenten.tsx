@@ -1144,4 +1144,85 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#10b981',
   },
+  // Budget Distribution Styles
+  budgetDistribution: {
+    marginTop: 20,
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderTopColor: '#2a2a2a',
+  },
+  budgetHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  budgetHeaderTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  totalBadge: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  totalBadgeSuccess: {
+    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+    borderColor: 'rgba(16, 185, 129, 0.3)',
+  },
+  totalBadgeError: {
+    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    borderColor: 'rgba(239, 68, 68, 0.3)',
+  },
+  totalBadgeText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#10b981',
+  },
+  sliderContainer: {
+    marginBottom: 16,
+  },
+  sliderHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  sliderLabel: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#ccc',
+  },
+  sliderValue: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#f97316',
+  },
+  sliderButtons: {
+    flexDirection: 'row',
+    gap: 6,
+  },
+  quickButton: {
+    flex: 1,
+    backgroundColor: '#0a0a0a',
+    padding: 10,
+    borderRadius: 6,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#2a2a2a',
+  },
+  quickButtonActive: {
+    backgroundColor: '#f97316',
+    borderColor: '#f97316',
+  },
+  quickButtonText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#666',
+  },
+  quickButtonTextActive: {
+    color: '#fff',
+  },
 });
