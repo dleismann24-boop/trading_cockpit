@@ -56,6 +56,7 @@ export default function Agenten() {
         setAutopilotConfig(autopilotRes.data.config);
         setAutopilotEnabled(autopilotRes.data.config.enabled);
         setAutopilotInterval(autopilotRes.data.config.interval_minutes);
+        setMaxTradePercentage(autopilotRes.data.config.max_trade_percentage || 10);
       }
 
       if (marketRes.data.success) {
