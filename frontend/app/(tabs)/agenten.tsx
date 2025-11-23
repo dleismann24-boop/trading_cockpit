@@ -617,4 +617,110 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'right',
   },
+  // Autopilot Styles
+  autopilotCard: {
+    backgroundColor: '#1a1a1a',
+    padding: 20,
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: '#2a2a2a',
+    marginTop: 8,
+  },
+  autopilotHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: 20,
+  },
+  autopilotTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 4,
+  },
+  autopilotSubtitle: {
+    fontSize: 13,
+    color: '#888',
+  },
+  toggleButton: {
+    backgroundColor: '#ef4444',
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
+    minWidth: 80,
+    alignItems: 'center',
+  },
+  toggleButtonActive: {
+    backgroundColor: '#10b981',
+  },
+  toggleButtonText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  intervalSection: {
+    marginBottom: 20,
+  },
+  intervalLabel: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#ccc',
+    marginBottom: 12,
+  },
+  intervalButtons: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  intervalButton: {
+    flex: 1,
+    backgroundColor: '#0a0a0a',
+    padding: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#2a2a2a',
+  },
+  intervalButtonActive: {
+    backgroundColor: '#f97316',
+    borderColor: '#f97316',
+  },
+  intervalButtonText: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#888',
+  },
+  intervalButtonTextActive: {
+    color: '#fff',
+  },
+  autopilotInfo: {
+    backgroundColor: '#0a0a0a',
+    padding: 14,
+    borderRadius: 8,
+    gap: 10,
+    marginBottom: 12,
+  },
+  autopilotInfoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  autopilotInfoText: {
+    fontSize: 13,
+    color: '#ccc',
+  },
+  warningBox: {
+    flexDirection: 'row',
+    backgroundColor: 'rgba(249, 115, 22, 0.1)',
+    padding: 12,
+    borderRadius: 8,
+    gap: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(249, 115, 22, 0.3)',
+  },
+  warningText: {
+    flex: 1,
+    fontSize: 12,
+    color: '#f97316',
+    lineHeight: 18,
+  },
 });
