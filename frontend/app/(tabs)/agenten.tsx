@@ -66,6 +66,10 @@ export default function Agenten() {
         setAutopilotEnabled(autopilotRes.data.config.enabled);
         setAutopilotInterval(autopilotRes.data.config.interval_minutes);
         setMaxTradePercentage(autopilotRes.data.config.max_trade_percentage || 10);
+        setJordanSoloBudget(autopilotRes.data.config.jordan_solo_budget || 0);
+        setBohlenSoloBudget(autopilotRes.data.config.bohlen_solo_budget || 0);
+        setFrodoSoloBudget(autopilotRes.data.config.frodo_solo_budget || 0);
+        setSharedConsensusBudget(autopilotRes.data.config.shared_consensus_budget || 100000);
       }
 
       if (marketRes.data.success) {
