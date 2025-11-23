@@ -146,9 +146,17 @@ export default function Agenten() {
       <View style={styles.header}>
         <View>
           <Text style={styles.headerTitle}>Autonome Agenten</Text>
-          <Text style={styles.headerSubtitle}>
-            Modus: {status?.mode || 'Solo'}
-          </Text>
+          <View style={styles.headerInfo}>
+            <Text style={styles.headerSubtitle}>
+              Modus: {status?.mode || 'Solo'}
+            </Text>
+            <View style={[styles.marketBadge, marketOpen ? styles.marketOpen : styles.marketClosed]}>
+              <View style={[styles.marketDot, marketOpen ? styles.marketDotOpen : styles.marketDotClosed]} />
+              <Text style={styles.marketBadgeText}>
+                {marketOpen ? 'Markt offen' : 'Markt geschlossen'}
+              </Text>
+            </View>
+          </View>
         </View>
         <MaterialCommunityIcons name="robot" size={32} color="#10b981" />
       </View>
