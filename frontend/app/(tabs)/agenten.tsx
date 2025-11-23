@@ -671,6 +671,20 @@ export default function Agenten() {
             </View>
 
             <ScrollView style={styles.modalScroll}>
+              {/* Gesamtübersicht */}
+              <View style={styles.summaryCard}>
+                <Text style={styles.summaryTitle}>📊 Zusammenfassung</Text>
+                <Text style={styles.summaryText}>
+                  Analysiert: {simulationResults?.trades_proposed || 0} Symbole
+                </Text>
+                <Text style={styles.summaryText}>
+                  Konsens erreicht: {simulationResults?.consensus_decisions?.length || 0}
+                </Text>
+                <Text style={styles.summaryText}>
+                  Kein Konsens: {(simulationResults?.trades_proposed || 0) - (simulationResults?.consensus_decisions?.length || 0)}
+                </Text>
+              </View>
+
               {simulationResults?.consensus_decisions?.map((decision: any, idx: number) => (
                 <View key={idx} style={styles.decisionCard}>
                   <View style={styles.decisionHeader}>
