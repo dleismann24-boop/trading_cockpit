@@ -26,7 +26,7 @@ export default function Chat() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Hey team! I'm The Coach, your AI trading advisor. I'm here to help you manage your portfolio with wisdom and a touch of basketball flair. What's on your mind?",
+      text: "Hey team! I'm Der Coach, your AI trading advisor. I'm here to help you manage your portfolio with wisdom and a touch of basketball flair. What's on your mind?",
       isUser: false,
       timestamp: new Date().toISOString(),
     },
@@ -88,10 +88,10 @@ export default function Chat() {
   };
 
   const quickPrompts = [
-    'How is my portfolio doing?',
-    'Should I buy more stocks?',
-    'What are the market trends?',
-    'Analyze my positions',
+    'Wie steht mein Portfolio?',
+    'Soll ich mehr Aktien kaufen?',
+    'Was sind die Markttrends?',
+    'Analysiere meine Positionen',
   ];
 
   return (
@@ -103,8 +103,8 @@ export default function Chat() {
       >
         <View style={styles.header}>
           <View>
-            <Text style={styles.headerTitle}>The Coach</Text>
-            <Text style={styles.headerSubtitle}>Your AI Trading Advisor</Text>
+            <Text style={styles.headerTitle}>Der Coach</Text>
+            <Text style={styles.headerSubtitle}>Dein KI-Trading-Berater</Text>
           </View>
           <View style={styles.coachBadge}>
             <MaterialCommunityIcons name="robot" size={32} color="#10b981" />
@@ -171,7 +171,7 @@ export default function Chat() {
           {/* Quick Prompts */}
           {messages.length === 1 && (
             <View style={styles.quickPromptsContainer}>
-              <Text style={styles.quickPromptsTitle}>Quick Questions:</Text>
+              <Text style={styles.quickPromptsTitle}>Schnellfragen:</Text>
               {quickPrompts.map((prompt, index) => (
                 <TouchableOpacity
                   key={index}
@@ -192,7 +192,7 @@ export default function Chat() {
           <View style={styles.inputWrapper}>
             <TextInput
               style={styles.input}
-              placeholder="Ask The Coach anything..."
+              placeholder="Ask Der Coach anything..."
               placeholderTextColor="#666"
               value={inputText}
               onChangeText={setInputText}
