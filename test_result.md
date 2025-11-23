@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Bitte teste die folgenden Backend-Endpoints für die autonomen Trading-Agenten: GET /api/autonomous/status, GET /api/autonomous/leaderboard, GET /api/autonomous/autopilot/status, POST /api/autonomous/autopilot/configure, POST /api/autonomous/start-cycle"
+user_problem_statement: "Bitte teste die neuen Features: 1. Dry-Run Trading Cycle - POST /api/autonomous/start-cycle mit {dry_run: true}, 2. Normaler Trading Cycle - POST /api/autonomous/start-cycle mit {dry_run: false}, 3. Markt-Status Check - GET /api/market/status. Wichtig: Agenten sollten sich jetzt absprechen (Konsens-Voting), bei Dry-Run keine echten Trades, detaillierte Logs der Agenten-Diskussion."
 
 backend:
   - task: "GET /api/autonomous/status - Status der autonomen Agenten"
