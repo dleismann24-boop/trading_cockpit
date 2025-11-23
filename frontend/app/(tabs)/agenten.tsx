@@ -446,6 +446,42 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#10b981',
   },
+  headerInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginTop: 4,
+  },
+  marketBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
+    gap: 6,
+  },
+  marketOpen: {
+    backgroundColor: 'rgba(16, 185, 129, 0.15)',
+  },
+  marketClosed: {
+    backgroundColor: 'rgba(239, 68, 68, 0.15)',
+  },
+  marketDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+  },
+  marketDotOpen: {
+    backgroundColor: '#10b981',
+  },
+  marketDotClosed: {
+    backgroundColor: '#ef4444',
+  },
+  marketBadgeText: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: '#fff',
+  },
   scrollView: {
     flex: 1,
   },
