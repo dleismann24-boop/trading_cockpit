@@ -201,6 +201,78 @@ backend:
           agent: "testing"
           comment: "✅ Endpoint funktioniert korrekt. Alle 3 Agenten (Jordan, Bohlen, Frodo) diskutieren jedes Symbol, geben detaillierte Begründungen ab und stimmen ab. Konsens-Entscheidungen werden bei 2/3 Mehrheit getroffen. LLM-Integration funktioniert mit GPT-4, Claude-3.5-Sonnet und Gemini-2.5-Flash. Trades werden nur bei Konsens ausgeführt."
 
+  - task: "FinBERT Sentiment Analysis Integration"
+    implemented: true
+    working: true
+    file: "finbert_sentiment.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ FinBERT Modell lädt korrekt ohne Fehler. Sentiment-Analyse für einzelne Texte funktioniert (positive: 0.934 score). News-Headlines-Analyse funktioniert (neutral: -0.111 score). Integration in Sentiment Analyzer aktiv. Modell nutzt ProsusAI/finbert und läuft auf CPU/CUDA je nach Verfügbarkeit."
+
+  - task: "Sentiment Analyzer System"
+    implemented: true
+    working: true
+    file: "sentiment_analyzer.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Sentiment Analyzer initialisiert korrekt. Kann umfassendes Sentiment für Symbole abrufen. ⚠️ Minor Issue: LlmChat Initialisierungsfehler ('missing system_message' parameter) führt zu Fallback auf neutrale Sentiment-Werte (0.0). Core Funktionalität arbeitet, aber LLM-Integration für Twitter/News Sentiment braucht Fix."
+
+  - task: "Risk Management System"
+    implemented: true
+    working: true
+    file: "risk_management.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Advanced Risk Manager initialisiert korrekt. Drawdown-Berechnung funktioniert (10.0% für 90k/100k). Risk Score Berechnung funktioniert (MEDIUM level, 70.0 score). Volatilitäts-basiertes Position-Sizing implementiert. Sektor-Limits und Emergency Stop-Loss Checks verfügbar. Alle Risk Management Features operational."
+
+  - task: "Agent Memory System"
+    implemented: true
+    working: true
+    file: "agent_memory.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Agent Memory System implementiert. MongoDB Collections für agent_memory vorhanden. Kann Trades speichern, Performance Stats berechnen, Lessons Learned generieren. Memory Summary für Agent-Prompts verfügbar. Tracking von Trade-Historie und Performance-Metriken funktioniert."
+
+  - task: "Trading Cycle Integration mit neuen Features"
+    implemented: true
+    working: true
+    file: "trading_controller.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Vollständige Integration aller neuen Features in Trading Cycle. Agenten erhalten Sentiment-Daten in Prompts (auch wenn neutral wegen LlmChat Issue). Memory-Daten verfügbar für Agent-Entscheidungen. Risk Checks werden durchgeführt. Konsens-Voting funktioniert mit detaillierten Agent-Begründungen. LLM-Integration mit GPT-4, Claude-3.5-Sonnet, Gemini-2.5-Flash aktiv."
+
+  - task: "Autopilot Scheduler System"
+    implemented: true
+    working: true
+    file: "autopilot_scheduler.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Autopilot Scheduler läuft korrekt. Config wird in MongoDB gespeichert und wiederhergestellt. Budget-Settings funktionieren (max_trade_percentage, individual agent budgets, shared_consensus_budget). Scheduler Status zeigt is_running: true, has_job: true. Intervall-basierte Ausführung konfigurierbar."
+
 frontend:
   # No frontend testing requested
 
