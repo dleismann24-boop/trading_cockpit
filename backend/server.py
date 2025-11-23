@@ -717,6 +717,32 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+@app.on_event("startup")
+async def startup_event():
+    """Initialize autopilot scheduler on startup"""
+    logger.info("🚀 Initializing Autopilot Scheduler...")
+    scheduler = get_autopilot_scheduler()
+    
+    # Set trading client for market checks
+    if trading_client:
+        scheduler.set_trading_client(trading_client)
+    
+    # Initialize trading controller
+    controller = get_trading_controller(trading_client, data_client)
+    if controller:
+        scheduler.set_trading_controller(controller)
+    
+    logger.info("✅ Autopilot Scheduler ready")
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
+    logger.info("Shutting down services...")
+    
+    # Shutdown scheduler
+    scheduler = get_autopilot_scheduler()
+    scheduler.shutdown()
+    
+    # Close DB
     client.close()
+    
+    logger.info("Services shut down complete")
