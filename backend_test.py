@@ -78,31 +78,41 @@ def test_endpoint(method, endpoint, payload=None, expected_status=200):
         }
 
 def main():
-    """Run all autonomous trading endpoint tests"""
-    print("🤖 AUTONOMOUS TRADING ENDPOINTS TEST SUITE")
+    """Run all autonomous trading endpoint tests - NEUE FEATURES"""
+    print("🤖 NEUE AUTONOMOUS TRADING FEATURES TEST SUITE")
     print("=" * 60)
     print(f"Backend URL: {BACKEND_URL}")
     print(f"Test started at: {datetime.now()}")
+    print("\n🎯 TESTING NEW FEATURES:")
+    print("   1. Dry-Run Trading Cycle (Simulation)")
+    print("   2. Normal Trading Cycle (Consensus Voting)")
+    print("   3. Market Status Check")
+    print("=" * 60)
     
     test_results = []
     
-    # Test 1: GET /api/autonomous/status - Status der autonomen Agenten
-    print("\n🔍 Test 1: Autonomous Status")
+    # Test 1: GET /api/market/status - Markt-Status prüfen
+    print("\n📈 Test 1: Market Status Check")
+    result = test_endpoint("GET", "/market/status")
+    test_results.append(result)
+    
+    # Test 2: GET /api/autonomous/status - Status der autonomen Agenten
+    print("\n🔍 Test 2: Autonomous Status")
     result = test_endpoint("GET", "/autonomous/status")
     test_results.append(result)
     
-    # Test 2: GET /api/autonomous/leaderboard - Performance-Ranking der Agenten
-    print("\n🏆 Test 2: Agent Leaderboard")
+    # Test 3: GET /api/autonomous/leaderboard - Performance-Ranking der Agenten
+    print("\n🏆 Test 3: Agent Leaderboard")
     result = test_endpoint("GET", "/autonomous/leaderboard")
     test_results.append(result)
     
-    # Test 3: GET /api/autonomous/autopilot/status - Autopilot-Konfiguration abrufen
-    print("\n🚁 Test 3: Autopilot Status")
+    # Test 4: GET /api/autonomous/autopilot/status - Autopilot-Konfiguration abrufen
+    print("\n🚁 Test 4: Autopilot Status")
     result = test_endpoint("GET", "/autonomous/autopilot/status")
     test_results.append(result)
     
-    # Test 4: POST /api/autonomous/autopilot/configure - Autopilot konfigurieren
-    print("\n⚙️ Test 4: Configure Autopilot")
+    # Test 5: POST /api/autonomous/autopilot/configure - Autopilot konfigurieren
+    print("\n⚙️ Test 5: Configure Autopilot")
     autopilot_config = {
         "enabled": True,
         "interval_minutes": 60
@@ -110,9 +120,18 @@ def main():
     result = test_endpoint("POST", "/autonomous/autopilot/configure", autopilot_config)
     test_results.append(result)
     
-    # Test 5: POST /api/autonomous/start-cycle - Trading-Zyklus starten
-    print("\n🔄 Test 5: Start Trading Cycle")
-    result = test_endpoint("POST", "/autonomous/start-cycle")
+    # Test 6: POST /api/autonomous/start-cycle - DRY-RUN Trading-Zyklus (NEUE FEATURE)
+    print("\n🧪 Test 6: DRY-RUN Trading Cycle (Simulation)")
+    print("   → Sollte Konsens-Entscheidungen simulieren ohne echte Trades")
+    dry_run_payload = {"dry_run": True}
+    result = test_endpoint("POST", "/autonomous/start-cycle", dry_run_payload, expected_status=200)
+    test_results.append(result)
+    
+    # Test 7: POST /api/autonomous/start-cycle - NORMALER Trading-Zyklus (NEUE FEATURE)
+    print("\n🚀 Test 7: NORMAL Trading Cycle (Consensus Voting)")
+    print("   → Sollte gemeinsames Portfolio-Trading mit Agenten-Abstimmung durchführen")
+    normal_payload = {"dry_run": False}
+    result = test_endpoint("POST", "/autonomous/start-cycle", normal_payload, expected_status=200)
     test_results.append(result)
     
     # Summary
