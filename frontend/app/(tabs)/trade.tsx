@@ -638,4 +638,58 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#666',
   },
+  companyInfoCard: {
+    backgroundColor: '#1a1a1a',
+    marginHorizontal: 20,
+    marginBottom: 20,
+    padding: 20,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#2a2a2a',
+  },
+  infoHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+    gap: 8,
+  },
+  infoHeaderText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#f97316',
+  },
+  companyName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 8,
+  },
+  companyDesc: {
+    fontSize: 14,
+    color: '#ccc',
+    lineHeight: 20,
+    marginBottom: 16,
+  },
+  infoGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  infoItem: {
+    flex: 1,
+    minWidth: '45%',
+    backgroundColor: '#0a0a0a',
+    padding: 12,
+    borderRadius: 8,
+  },
+  infoLabel: {
+    fontSize: 11,
+    color: '#888',
+    marginBottom: 4,
+  },
+  infoValue: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#10b981',
+  },
 });
