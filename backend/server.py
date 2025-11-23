@@ -641,7 +641,9 @@ async def set_user_constraints(request: ConstraintsRequest):
 
 class AutopilotConfigRequest(BaseModel):
     enabled: bool
-    interval_minutes: int = 60  # Standard: jede Stunde
+    interval_minutes: int
+    max_trade_percentage: float = 10.0  # Max % des Portfolios pro Trade
+    max_budget_per_agent: float = None  # Optional: Max Budget pro Agent = 60  # Standard: jede Stunde
 
 autopilot_config = {
     'enabled': False,
